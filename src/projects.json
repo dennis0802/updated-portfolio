@@ -1,0 +1,178 @@
+{
+    "projects": [[
+        {
+            "id": 1,
+            "title": "Personal Portfolio",
+            "timeframe": "Sept. 2023 - June 2024",
+            "src": "../img/portfolio.png",
+            "alt": "Portfolio",
+            "isPersonal": true,
+            "isWork": false,
+            "repository": "https://github.com/dennis0802/updated-portfolio",
+            "partialDesc": "A web portfolio (recently modernized) to display my projects, skills, and a bio about me to potential employers...",
+            "fullDesc": "A web portfolio (recently modernized) to display my projects, skills, and a bio about me to potential employers and viewers. This will be updated as needed.",
+            "tools": ["React", "Node.js", "Bootstrap", "HTML", "CSS", "JavaScript"]
+        },
+        {
+            "id": 2,
+            "title": "Art Portfolio",
+            "timeframe": "May 2024 - June 2024",
+            "src": "../img/art_portfolio.png",
+            "alt": "Art portfolio",
+            "isPersonal": true,
+            "isWork": false,
+            "repository": "https://github.com/dennis0802/artPortfolio",
+            "partialDesc": "As part of a personal project to create a portfolio to display the artwork I have done with visual arts and...",
+            "fullDesc": "As part of a personal project to create a portfolio to display the artwork I have done with visual arts and digital art hobbies since May 2019. Using a CRUD system and an Express REST API to manage this artwork, data can be managed and displayed 50% more efficiently than the initial file folder system approach.",
+            "tools": ["React", "Express", "PostgreSQL", "REST", "Bootstrap", "Node.js", "HTML", "CSS", "JavaScript"]
+        },
+        {
+            "id": 3,
+            "title": "Employee Wiki",
+            "timeframe": "Mar. 2024 - May 2024",
+            "src": "../img/hris.png",
+            "alt": "Employee Wiki HRIS",
+            "isPersonal": true,
+            "isWork": false,
+            "repository": "https://github.com/dennis0802/artPortfolio",
+            "video": "https://youtu.be/dEDhTjpj0Zg",
+            "partialDesc": "As part of a personal project to create a secure HRIS. Admins can manage the application, HR can enter...",
+            "fullDesc": "As part of a personal project to create a secure HRIS. Admins can manage the application, HR can enter in employee information and payroll, while regular users can view and change their information.",
+            "tools": ["SpringBoot", "JPA", "Java", "HTML", "CSS", "JavaScript"]
+        }
+    ],
+    [
+        {
+            "id": 4,
+            "title": "Meeting Room Simulator",
+            "timeframe": "ON HIATUS",
+            "src": "../img/meetingSim.png",
+            "alt": "Meeting simulator",
+            "isPersonal": true,
+            "isWork": false,
+            "repository": "https://github.com/dennis0802/meetingRoomSim",
+            "video": "",
+            "doc": "../docs/Meeting Room Simulator Design Document.pdf",
+            "partialDesc": "As part of a personal project to implement randomly generated concepts into an office meeting room concept, playing as a...",
+            "fullDesc": "As part of a personal project to implement randomly generated concepts into an office meeting room concept, playing as a meeting attendee to ensure that your company's meetings go well. Players must manage their time, resources, and their own person's resources wisely while ensuring the meetings go well. Otherwise, their job will be on the line.",
+            "tools": ["Unity", "C#", "MongoDB", "Video Game"]
+        },
+        {
+            "id": 5,
+            "title": "Mock Game Forum Site",
+            "timeframe": "Jan. 2024 - Feb. 2024",
+            "src": "../img/gameForum.png",
+            "alt": "Game forum site",
+            "isPersonal": true,
+            "isWork": false,
+            "repository": "https://github.com/dennis0802/gameSite", 
+            "partialDesc": "A mock game forum site where users can view and contribute to discussions about games while administrators can manage data and user permissions...",
+            "fullDesc": "A mock game forum site where users can view and contribute to discussions about games while administrators can manage data and user permissions on the site. ",
+            "tools": ["Express", "MongoDB", "Node.js", "CSS", "JavaScript"]
+        },
+        {
+            "id": 6,
+            "title": "The Western Trail",
+            "timeframe": "Jan. 2023 - Dec. 2023",
+            "src": "../img/westernTrail.png",
+            "alt": "Capstone project",
+            "doc": "../docs/4990FinalReport.pdf",
+            "download": "../docs/The Western Trail.zip",
+            "video": "https://youtu.be/qxMqgqgrTtY",
+            "isPersonal": false,
+            "isAcademic": true,
+            "isWork": false,
+            "repository": "https://github.com/dennis0802/artPortfolio",
+            "partialDesc": "A self-initiated capstone project allowing you to play up to four different save files, playing as the leader of a team of four people...",
+            "fullDesc": "A self-initiated capstone project allowing you to play up to four different save files, playing as the leader of a team of four people surviving from Montreal to Vancouver in a fictional post-apocalyptic scenario. Players will have to manage their resources while travelling and resting and defend themselves from the mutants that wander the land. Demo presented Nov. 2023.",
+            "tools": ["Unity", "C#", "SQLite", "SQLCipher", "Video Game"]
+        }
+    ],
+    [
+        {
+            "id": 7,
+            "title": "Mental Health Database Application",
+            "timeframe": "Sept. 2023 - Nov. 2023",
+            "src": "../img/mentalHealthDB.png",
+            "alt": "Mental health application",
+            "doc": "../docs/4150FinalReport.pdf",
+            "isPersonal": false,
+            "isAcademic": true,
+            "isWork": false,
+            "repository": "",
+            "partialDesc": "A final group project to create a meaningful application with an application server and database access. Admins can create, read, update...",
+            "fullDesc": "A final group project to create a meaningful application with an application server and database access. Admins can create, read, update, and delete mental health data and end-users view the data. Intended as an application for doctors in other countries to know appropriate treatments used for mental health.",
+            "tools": ["Python", "Flask", "SQLite", "HTML", "CSS", "Group Project"]
+        },
+        {
+            "id": 8,
+            "title": "Inventory Management App",
+            "timeframe": "Sept. 2022 - Aug. 2023",
+            "src": "../img/inventoryApp.png",
+            "alt": "Art portfolio",
+            "isPersonal": false,
+            "isWork": true,
+            "repository": "",
+            "partialDesc": "A project during my 3rd and 4th co-op position to help an IT department manage their assets 40% more efficiently by visualizing and tracking...",
+            "fullDesc": "A project during my 3rd and 4th co-op position to help an IT department manage their assets 40% more efficiently by visualizing and tracking their data and automating the processes within it. End-users would be able to create items, see the amount in stock, take/return assets, view laptop status, USB status, and printer status, and output the data in multiple formats.",
+            "tools": ["Power Platform", "Microsoft 365", "Power Fx", "Work"]
+        },
+        {
+            "id": 9,
+            "title": "Capture the Flag AI",
+            "timeframe": "Jan. 2023 - Apr. 2023",
+            "src": "../img/ctf_ai.png",
+            "alt": "Capture the flag AI",
+            "isPersonal": false,
+            "isAcademic": true,
+            "video": "https://youtu.be/CAGBxPbmELQ",
+            "repository": "",
+            "partialDesc": "As part of a final project to showcase goal-oriented behaviour for agents playing a game of capture the flag with elements of king of the hill...",
+            "fullDesc": "As part of a final project to showcase goal-oriented behaviour for agents playing a game of capture the flag with elements of king of the hill. Agents are split into two teams with three different possible roles, can decide what weapon they want to equip, and can decide what action to do. Flags can be captured and control points can be captured to help their team.",
+            "tools": ["Unity", "C#", "Video Game"]
+        }
+    ],
+    [
+        {
+            "id": 10,
+            "title": "Tabletop Games",
+            "timeframe": "Jul. 2022 - Aug. 2022",
+            "src": "../img/tabletop_ecom.png",
+            "alt": "Board games site",
+            "isPersonal": false,
+            "isAcademic": true,
+            "link": "https://dao114.myweb.cs.uwindsor.ca/COMP2707/Project/public/index.php",
+            "repository": "",
+            "partialDesc": "A final project to create a full-stack website with client-side and server-side scripting. Users can login as customers to purchase items and...",
+            "fullDesc": "A final project to create a full-stack website with client-side and server-side scripting. Users can login as customers to purchase items and as staff to manage the content as a CMS. All data stored in the database is secure, passwords are encrypted, and input sanitization occurs during form submission. A friend that I demoed the project commented that the project was better with the UI than some of the similar sites they've been on. ",
+            "tools": ["HTML", "CSS", "PHP", "MySQL"]
+        },
+
+        {
+            "id": 11,
+            "title": "RS Reporting Application",
+            "timeframe": "Jan. 2022 - Mar. 2022",
+            "src": "../img/ssrs.png",
+            "alt": "Reporting application",
+            "isPersonal": false,
+            "isWork": true,
+            "repository": "",
+            "partialDesc": "A project during my 2nd co-op position to help an IT department translate their legacy system AS400 queries into efficient SQL Server...",
+            "fullDesc": "A project during my 2nd co-op position to help an IT department translate their legacy system AS400 queries into efficient SQL Server queries for a full stack application, now used by 200+ employees. Queries were designed with temporary tables in the process to help speed the query up as much as possible.",
+            "tools": ["SQL Server", "SSMS", "SSRS Report Builder", "Work"]
+        },
+        {
+            "id": 12,
+            "title": "Online Capture the Flag",
+            "timeframe": "Oct. 2021 - Dec. 2021",
+            "src": "../img/ctf_online.png",
+            "alt": "Online Capture the Flag",
+            "isPersonal": false,
+            "isAcademic": true,
+            "repository": "https://github.com/dennis0802/uwindsor-courses/tree/main/comp3770/project-group-14-main",
+            "partialDesc": "A final group project to showcase basic game development skills and online multiplayer. Users can join an online game of capture the...",
+            "fullDesc": "A final group project to showcase basic game development skills and online multiplayer. Users can join a game of capture the flag online up to 4-players. Four weapon choices, two maps, user-friendly UI and pre-game chatroom are available.",
+            "tools": ["Unity", "C#", "Mirror Networking", "Video Game"]
+        }
+    ]]
+}

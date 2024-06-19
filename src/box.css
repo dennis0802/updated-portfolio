@@ -1,0 +1,35 @@
+.box {
+    transition: 0.5s
+}
+
+.boxProj {
+    transition: transform .5s;
+}
+
+.box:hover {
+    box-shadow: 0 0 20px rgba(7, 7, 7, 0.2); 
+    transition: opacity 0.5s ease;
+}
+
+.boxProj:hover {
+    box-shadow: 0 0 20px rgba(7, 7, 7, 0.2); 
+    transition: opacity 0.5s ease;
+    transform: scale(1.05)
+}
+
+@media only screen and (max-width: 1000px) {
+    .boxProj {
+      display:inline-flex;
+      width: 100%;
+    }
+
+    .box {
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-width: 430px) {
+    .box {
+        font-size: 11px;
+    }
+}
