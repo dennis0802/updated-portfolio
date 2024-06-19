@@ -106,14 +106,14 @@ const ProjectsPage = () => {
                                             id="projectImg"
                                             rounded
                                         />
-                                        <Figure.Caption>
+                                        <Figure.Caption className="caption">
                                             <b>{project.title}</b><br/>
                                             {project.timeframe}
                                         </Figure.Caption>
                                     
-                                        <hr/>
+                                        <hr className="caption-hr"/>
                                         <ProjectInfoElement project={project} /><br/>
-                                        <div className="mb-3">
+                                        <div className="mb-3 desc">
                                             {project.partialDesc}
                                         </div>
 
@@ -121,10 +121,10 @@ const ProjectsPage = () => {
                                         {project.tools ?
                                         <>
                                             {project.tools.slice(0,3).map((tool, index) => (
-                                                <Badge bg="secondary" key={index} className="mx-1">{tool}</Badge>
+                                                <Badge bg="secondary" key={index} className="mx-1 caption-badge">{tool}</Badge>
                                             ))}
                                             {project.tools.length - project.tools.slice(0,3).length > 0 ?
-                                                <Badge bg="secondary" className="mx-1">{"+" + (project.tools.length - project.tools.slice(0,3).length)}</Badge>
+                                                <Badge bg="secondary" className="mx-1 caption-badge">{"+" + (project.tools.length - project.tools.slice(0,3).length)}</Badge>
                                             :
                                                 ""
                                             }

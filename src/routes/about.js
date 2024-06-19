@@ -10,7 +10,7 @@ const About = () => {
                 <MainNavbar selected={{id:2}}/>
                 <h1 className="mt-3">About Me</h1>
                 <div className="line-1 anim-typewriter mt-4" >
-                    <h6 style={{fontWeight: "bold"}}>Hi there, I'm Dennis Dao, a software developer and a digital artist.</h6>
+                    <h6 style={{fontWeight: "bold"}}>Hi there, I'm Dennis Dao, a software developer.</h6>
                 </div>
                  
                 <p className="mt-2" style={{width: "50%", marginLeft: "auto", marginRight: "auto"}}>

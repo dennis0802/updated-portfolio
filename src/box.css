@@ -17,6 +17,12 @@
     transform: scale(1.05)
 }
 
+#projectImg {
+    object-fit: scale-down;
+    max-width: 200px;
+    height: 180px;
+}
+
 @media only screen and (max-width: 1000px) {
     .boxProj {
       display:inline-flex;
@@ -31,5 +37,28 @@
 @media only screen and (max-width: 430px) {
     .box {
         font-size: 11px;
+    }
+
+    .desc {
+        font-size: 11px;
+        max-width: 150px;
+    }
+
+    #projectImg {
+        object-fit: scale-down;
+        max-width: 100px;
+        height: 180px;
+    }
+
+    .caption {
+        max-width: 140px;
+    }
+
+    .caption-hr {
+        max-width: 140px;
+    }
+
+    .caption-badge {
+        max-width: 90px;
     }
 }
