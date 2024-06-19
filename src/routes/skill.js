@@ -67,6 +67,7 @@ const Skills = () => {
                                 <li>Express.js</li>
                                 <li>React</li>
                                 <li>Spring Boot</li>
+                                <li>Bootstrap</li>
                             </ul>
                         </Col>
                     </Row>
