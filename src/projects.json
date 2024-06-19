@@ -10,7 +10,7 @@
             "isWork": false,
             "repository": "https://github.com/dennis0802/updated-portfolio",
             "partialDesc": "A web portfolio (recently modernized) to display my projects, skills, and a bio about me to potential employers...",
-            "fullDesc": "A web portfolio (recently modernized) to display my projects, skills, and a bio about me to potential employers and viewers. This will be updated as needed.",
+            "fullDesc": "A web portfolio (recently modernized) to display my projects, skills, and a bio about me to potential employers and viewers. This will be updated as needed. You might already be viewing this project!",
             "tools": ["React", "Node.js", "Bootstrap", "HTML", "CSS", "JavaScript"]
         },
         {
