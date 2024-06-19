@@ -48,8 +48,10 @@ const Experience = () => {
                             <h5>September 2020 - December 2023</h5>
                             <ul style={{textAlign: "left"}}>
                                 <li>
-                                    Evaluated quality of student work, led lab sessions, proctored exams, and answered 
-                                    student questions during weekly office hours for classes of <b>70+ students</b>
+                                    Collaborated with professors and other TAs to provide support to <b>500+ students</b> for undergraduate computer science courses
+                                </li>
+                                <li>
+                                    Provided one-on-one feedback to students during office hours, evaluated the quality of student work, and coordinated lab sessions
                                 </li>
                                 <li>
                                     Worked for courses such as: Introduction to Algorithms and Programming I; System Programming; Introduction to the Internet; 
@@ -64,12 +66,11 @@ const Experience = () => {
                             <h5>September 2022 - August 2023</h5>
                             <ul style={{textAlign: "left"}}>
                                 <li>
-                                    Supported IT and Facilities staff with troubleshooting technical problems, participating in the on-boarding of new employees, and with records administration using  
-                                    <b> Microsoft 365</b> and <b>Power Platform</b> <i>(hiatus Jan. 2023 - Apr. 2023)</i>
+                                    Supported IT and Facilities staff with excellent service through helpdesk, participating in employee on-boarding, and rolling out new work 
+                                    phones to <b>60+ employees</b> for enhanced information security (on hiatus Jan. 2023 - Apr. 2023)
                                 </li>
                                 <li>
-                                    Contributed to the company's return to office plan by drafting employee handbooks, moving office furniture, setting up office workstations and IT equipment, and rolled out new 
-                                    work phones to 60+ employees for security improvements
+                                    Contributed to IT records administration using <b>Microsoft 365</b> and <b>Power Platform</b> resulting in a more efficient management of assets
                                 </li>
                             </ul>
                         </Col>
@@ -80,10 +81,10 @@ const Experience = () => {
                             <h5>January 2022 - April 2022</h5>
                             <ul style={{textAlign: "left"}}>
                                 <li>
-                                    Designed, configured, and implemented software and services for network operating efficiency with <b>Visual Basic</b> and <b>SQL Server</b>
+                                    Designed and implemented features for a quotes system and a secure reporting service using <b>Visual Basic</b> and <b>SQL Server</b>
                                 </li>
                                 <li>
-                                    Maintained the software of the company through the helpdesk to ensure operating problems are resolved and the availability of disk space, 
+                                    Maintained the software of the company using <b>Track-It!</b> to ensure operating problems were resolved and the availability of disk space, 
                                     response time, and information security for <b>200+ employees</b>
                                 </li>
                             </ul>
@@ -97,10 +98,12 @@ const Experience = () => {
                             <h5>May 2021 - June 2021</h5>
                             <ul style={{textAlign: "left"}}>
                                 <li>
-                                    Developed photos, logos, social media campaigns, infographics, and other marketing documents for small to medium businesses using <b>Adobe Creative Cloud</b> software in the Digital Main Street program
+                                    Developed photos, logos, social media campaigns, infographics, and other marketing documents in small <b>Agile</b> teams to 
+                                    facilitate digital transformations for small-medium businesses using <b>Adobe Creative Cloud</b> in the Digital Main Street 
+                                    program
                                 </li>
                                 <li>
-                                    Met with clients regularly to showcase designs done for them and revise it based on their feedback
+                                    Delivered designs and documents to clients regularly, revising them based on their feedback until clients were satisfied
                                 </li>
                             </ul>
                         </Col>
