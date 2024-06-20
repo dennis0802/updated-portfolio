@@ -36,8 +36,8 @@ const ProjectsPage = () => {
                 <MainNavbar selected={{id:3}}/>
                 <h1 className="mt-3">Projects</h1>
                 <p style={{width: "50%", marginLeft: "auto", marginRight: "auto"}}>
-                    Projects have always been an opportunity for me to develop personally and professionally. With each project, it provides learning experiences, 
-                    refining my problem-solving skills, improving my ability to articulate ideas, and promoting effective collaboration.
+                    Projects have always been an opportunity for me to develop personally and professionally. With each project, it provides learning experiences and an opportunity 
+                    to refine my problem-solving skills, improve my ability to articulate ideas, and promote effective collaboration.
                 </p>
 
                 <Container style={{width: "50%"}} className="mt-3">
