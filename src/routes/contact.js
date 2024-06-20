@@ -20,6 +20,7 @@ const Contact = () => {
                     <Button
                         className="mt-2 mx-2 contactButton"
                         variant="secondary"
+                        onClick={sendEmail}
                     >
                         <Image
                             src={"../img/email.png"}
@@ -27,7 +28,6 @@ const Contact = () => {
                             height={32}
                             alt={"email"}
                             className="logoImg mx-2 my-1"
-                            onClick={sendEmail}
                         />
                         <span style={{fontWeight: "bold"}}>Send an Email</span>
                     </Button>
@@ -35,6 +35,7 @@ const Contact = () => {
                     <Button
                         className="mt-2 contactButton"
                         variant="secondary"
+                        onClick={goToLinkedIn}
                     >
                         <Image
                             src={"../img/linkedin.png"}
@@ -42,7 +43,6 @@ const Contact = () => {
                             height={32}
                             alt={"Linkedin"}
                             className="logoImg mx-2 my-1"
-                            onClick={goToLinkedIn}
                         />
                         <span style={{fontWeight: "bold"}}>Connect on LinkedIn</span>
                     </Button>
