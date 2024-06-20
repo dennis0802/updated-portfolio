@@ -13,9 +13,6 @@ const ProjectsPage = () => {
     const [viewing, setViewing] = useState(false);
     const [maxViewCount, setMaxViewCount] = useState(2);
     const [projectListing, setProjectListing] = useState(json.projects.slice(0,maxViewCount));
-    
-
-    console.log(json.projects.slice(0,2))
 
     const changeView = function(rowIndex, colIndex){
         if(viewing){
