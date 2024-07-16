@@ -35,7 +35,7 @@ const About = () => {
                     <p className="mt-2" style={{width: "50%", marginLeft: "auto", marginRight: "auto"}}>
                         Looking ahead, I am excited to continue learning in computer science and technology as it advances. 
                         My goal is to make a meaningful impact to the people I work with, using my skills to build solutions to positively impact their lives.
-                        Outside of computer science, I enjoy drawing, painting, gaming, watching TV shows, and photography. 
+                        Outside of computer science, I enjoy drawing, painting, graphic design, gaming, watching TV shows, and photography. 
                     </p>
                 </motion.div>
             </div>

@@ -12,7 +12,7 @@ const Contact = () => {
     return (
         <div className="App">
             <div id="page">
-                <MainNavbar selected={{id:6}}/>
+                <MainNavbar selected={{id:7}}/>
                 <motion.div
                     initial={{opacity: 0}}
                     animate={{opacity: 1}}

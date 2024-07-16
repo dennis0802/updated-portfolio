@@ -28,9 +28,10 @@ function MainNavbar({selected}) {
                     <MainNavbarElement props={{target: "/index", targetName: "Home", selected: selected.id, targetID: 1}} />
                     <MainNavbarElement props={{target: "/about", targetName: "About", selected: selected.id, targetID: 2}} />
                     <MainNavbarElement props={{target: "/projects", targetName: "Projects", selected: selected.id, targetID: 3}} />
-                    <MainNavbarElement props={{target: "/skills", targetName: "Skills", selected: selected.id, targetID: 4}} />
-                    <MainNavbarElement props={{target: "/experience", targetName: "Experience", selected: selected.id, targetID: 5}} />
-                    <MainNavbarElement props={{target: "/contact", targetName: "Contact", selected: selected.id, targetID: 6}} />
+                    <MainNavbarElement props={{target: "/graphicdesign", targetName: "Graphic Design", selected: selected.id, targetID: 4}} />
+                    <MainNavbarElement props={{target: "/skills", targetName: "Skills", selected: selected.id, targetID: 5}} />
+                    <MainNavbarElement props={{target: "/experience", targetName: "Experience", selected: selected.id, targetID: 6}} />
+                    <MainNavbarElement props={{target: "/contact", targetName: "Contact", selected: selected.id, targetID: 7}} />
                   </Nav>
                   <Nav>
                     <Nav.Link as={Link} to={"../docs/DennisDao_Resume.pdf"} target="_blank" rel="noopener noreferrer" style={{color: "white"}}>Resume</Nav.Link>

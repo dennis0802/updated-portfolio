@@ -9,7 +9,7 @@ const Skills = () => {
     return (
         <div className="App">
             <div id="page">
-                <MainNavbar selected={{id:4}}/>
+                <MainNavbar selected={{id:5}}/>
                 <motion.div
                     initial={{opacity: 0}}
                     animate={{opacity: 1}}

@@ -12,7 +12,7 @@ const Experience = () => {
     return (
         <div className="App">
             <div id="page">
-                <MainNavbar selected={{id:5}}/>
+                <MainNavbar selected={{id:6}}/>
                 <motion.div
                     initial={{opacity: 0}}
                     animate={{opacity: 1}}

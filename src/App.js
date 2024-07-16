@@ -8,6 +8,7 @@ import ErrorPage from './routes/error';
 import Experience from './routes/experience';
 import ContactRoute from './routes/contact';
 import ProjectsPage from './routes/projects';
+import GraphicsPage from './routes/graphicdesign';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/index" element={<Home/>} />
         <Route path="/about" element={<About/>} />
         <Route path="/projects" element={<ProjectsPage/>}/>
+        <Route path="/graphicdesign" element={<GraphicsPage/>}/>
         <Route path="/skills" element={<Skills/>} />
         <Route path="/experience" element={<Experience />}/>
         <Route path="/contact" element={<ContactRoute />}/>
