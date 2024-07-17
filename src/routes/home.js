@@ -25,6 +25,7 @@ const Home = () => {
                         <li><Link to={"/index"}>Home</Link></li>
                         <li><Link to={"/about"}>About Me</Link></li>
                         <li><Link to={"/projects"}>Projects</Link></li>
+                        <li><Link to={"/graphicdesign"}>Graphic Design</Link></li>
                         <li><Link to={"/skills"}>Skills</Link></li>
                         <li><Link to={"/experience"}>Experience</Link></li>
                         <li><Link to={"/contact"}>Contact</Link></li>

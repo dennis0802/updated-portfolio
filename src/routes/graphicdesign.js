@@ -41,7 +41,7 @@ const GraphicsPage = () => {
                     exit={{opacity: 0}}
                     transition={{duration: "0.4"}}
                 >
-                    <h1 className="mt-3">Graphic Design Projects</h1>
+                    <h1 className="mt-3">Graphic Design</h1>
                     <p style={{width: "50%", marginLeft: "auto", marginRight: "auto"}}>
                         As a hobby and for some work and academic commitments, I have done graphic design work in the past. Each project provided me a learning experience and
                         an opportunity to explore my creativity and design skills and promote effective collaboration with the people I worked with creating them.
