@@ -104,8 +104,8 @@ const Experience = () => {
                                 <h5>May 2021 - June 2021</h5>
                                 <ul style={{textAlign: "left"}}>
                                     <li>
-                                        Developed photos, logos, social media campaigns, infographics, and other marketing documents in small <b>Agile</b> teams to 
-                                        facilitate digital transformations for small-medium businesses using <b>Adobe Creative Cloud</b> in the Digital Main Street 
+                                        Developed photos, logos, social media campaigns, infographics, and other marketing documents in a remote <b>Agile</b> team of 8 to 
+                                        facilitate digital transformations for 5 small-medium businesses using <b>Adobe Creative Cloud</b> in the Digital Main Street 
                                         program
                                     </li>
                                     <li>
