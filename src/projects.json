@@ -22,8 +22,8 @@
             "isPersonal": true,
             "isWork": false,
             "repository": "https://github.com/dennis0802/artPortfolio",
-            "partialDesc": "A personal portfolio using Express and React to display the artwork I have done with visual arts and digital art hobbies since May 2019...",
-            "fullDesc": "A personal project to create a portfolio to display the artwork I have done with visual arts and digital art hobbies since May 2019. Using a CRUD system and an Express REST API to manage this artwork, data can be managed and displayed 50% more efficiently than the initial file folder system approach.",
+            "partialDesc": "A full-stack portfolio application to display the artwork I have done with visual arts and digital art hobbies since May 2019...",
+            "fullDesc": "A full-stack portfolio application to display the artwork I have done with visual arts and digital art hobbies since May 2019. Using a CRUD system and an Express REST API to manage this artwork, data can be managed and displayed 50% more efficiently than the initial file folder system approach.",
             "tools": ["React", "Express", "PostgreSQL", "REST", "Bootstrap", "Node.js", "HTML", "CSS", "JavaScript"]
         },
         {
@@ -36,8 +36,8 @@
             "isWork": false,
             "repository": "https://github.com/dennis0802/artPortfolio",
             "video": "https://youtu.be/dEDhTjpj0Zg",
-            "partialDesc": "A secure HRIS system application built using SpringBoot to help businesses keep track of employee information and payroll...",
-            "fullDesc": "A secure HRIS system application built using SpringBoot to help businesses keep track of employee information and payroll. Employees can also use it to view and change their information.",
+            "partialDesc": "A full-stack HRIS system application built using SpringBoot to help businesses keep track of employee information and payroll...",
+            "fullDesc": "A full-stack HRIS system application built using SpringBoot to help businesses keep track of employee information and payroll. Employees can also use it to view and change their information.",
             "tools": ["SpringBoot", "JPA", "Java", "HTML", "CSS", "JavaScript"]
         }
     ],

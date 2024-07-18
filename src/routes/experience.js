@@ -68,7 +68,7 @@ const Experience = () => {
 
                             <Col className="mx-2 mt-2 box" style={{outline: "1px solid #CCCCCC", borderRadius: "10px"}}>                                        
                                 <h3 className="mt-2">Windsor-Detroit Bridge Authority</h3>
-                                <h4>IT/Facilities Co-op Student</h4>
+                                <h4>IT Support Specialist Co-op Student</h4>
                                 <h5>September 2022 - August 2023</h5>
                                 <ul style={{textAlign: "left"}}>
                                     <li>
@@ -76,21 +76,21 @@ const Experience = () => {
                                         phones to <b>60+ employees</b> for enhanced information security (on hiatus Jan. 2023 - Apr. 2023)
                                     </li>
                                     <li>
-                                        Contributed to IT records administration using <b>Microsoft 365</b> and <b>Power Platform</b> resulting in a more efficient management of assets
+                                        Contributed to IT records administration using <b>Microsoft 365</b> and <b>Power Platform</b> resulting in a <b>40%</b>more efficient management of assets
                                     </li>
                                 </ul>
                             </Col>
 
                             <Col className="mx-2 mt-2 box" style={{outline: "1px solid #CCCCCC", borderRadius: "10px"}}>                                        
                                 <h3 className="mt-2">The Narmco Group</h3>
-                                <h4>IT Co-op Student</h4>
+                                <h4>IT Developer Co-op Student</h4>
                                 <h5>January 2022 - April 2022</h5>
                                 <ul style={{textAlign: "left"}}>
                                     <li>
-                                        Designed and implemented features for a quotes system and a secure reporting service using <b>Visual Basic</b> and <b>SQL Server</b>
+                                        Designed and implemented quotes system features and a secure reporting service using <b>Visual Basic</b> and <b>SQL Server</b>
                                     </li>
                                     <li>
-                                        Maintained the software of the company using <b>Track-It!</b> to ensure operating problems were resolved and the availability of disk space, 
+                                        Maintained the software of the company using <b>Track-It</b> to ensure operating problems were resolved and the availability of disk space, 
                                         response time, and information security for <b>200+ employees</b>
                                     </li>
                                 </ul>
@@ -100,7 +100,7 @@ const Experience = () => {
                         <Row className="my-1">
                             <Col className="mx-2 mt-2 box" style={{outline: "1px solid #CCCCCC", borderRadius: "10px"}}>
                                 <h3 className="mt-2">Communitech</h3>
-                                <h4>Graphic Designer</h4>
+                                <h4>Graphic Designer Co-op Student</h4>
                                 <h5>May 2021 - June 2021</h5>
                                 <ul style={{textAlign: "left"}}>
                                     <li>
