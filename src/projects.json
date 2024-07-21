@@ -34,7 +34,7 @@
             "alt": "Employee Wiki HRIS",
             "isPersonal": true,
             "isWork": false,
-            "repository": "https://github.com/dennis0802/artPortfolio",
+            "repository": "https://github.com/dennis0802/employee-wiki",
             "video": "https://youtu.be/dEDhTjpj0Zg",
             "partialDesc": "A full-stack HRIS system application built using SpringBoot to help businesses keep track of employee information and payroll...",
             "fullDesc": "A full-stack HRIS system application built using SpringBoot to help businesses keep track of employee information and payroll. Employees can also use it to view and change their information.",
