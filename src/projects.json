@@ -82,7 +82,6 @@
             "isPersonal": false,
             "isAcademic": true,
             "isWork": false,
-            "repository": "https://github.com/dennis0802/artPortfolio",
             "partialDesc": "A Unity 3D capstone game where the player is the leader of a team of four people surviving from Montreal to Vancouver in a fictional...",
             "fullDesc": "A Unity 3D capstone game where the player is the leader of a team of four people surviving from Montreal to Vancouver in a fictional post-apocalyptic scenario. Players will have to manage their resources while travelling and resting and defend themselves from the mutants that wander the land. Players can have up to four different save files.",
             "tools": ["Unity", "C#", "SQLite", "SQLCipher", "Video Game", "COMP-4990"]
