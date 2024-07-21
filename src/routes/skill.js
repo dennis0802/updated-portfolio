@@ -39,6 +39,7 @@ const Skills = () => {
                                     <li>PHP</li>
                                     <li>Power Fx</li>
                                     <li>C++</li>
+                                    <li>BASH</li>
                                 </ul>
                             </Col>
 
@@ -47,7 +48,7 @@ const Skills = () => {
                                 <ul style={{listStyleType: "square", textAlign: "left"}}>
                                     <li>Unity</li>
                                     <li>GitHub</li>
-                                    <li>Office 365</li>
+                                    <li>Microsoft 365</li>
                                     <li>Windows</li>
                                     <li>Mac</li>
                                     <li>Linux</li>
@@ -56,12 +57,15 @@ const Skills = () => {
                                     <li>SQL Server</li>
                                     <li>SQL Server Reporting Services (SSRS)</li>
                                     <li>SQL Server Management Studio (SSMS)</li>
-                                    <li>GIMP/Photoshop</li>
+                                    <li>Active Directory Users and Computers (ADUC)</li>
+                                    <li>Adobe Creative Cloud</li>
                                     <li>Power Platform</li>
                                     <li>PHPmyAdmin</li>
                                     <li>Docker</li>
                                     <li>MongoDB</li>
                                     <li>Google Cloud Platform</li>
+                                    <li>PostgreSQL</li>
+                                    <li>Git</li>
                                 </ul>
                             </Col>
 
@@ -69,7 +73,10 @@ const Skills = () => {
                                 <h5>Libraries and Frameworks</h5>      
                                 <ul style={{listStyleType: "square", textAlign: "left"}}>
                                     <li>.NET</li>
+                                    <li>SQLite-net</li>
                                     <li>Flask</li>
+                                    <li>Pandas</li>
+                                    <li>NumPy</li>
                                     <li>Node.js</li>
                                     <li>Express.js</li>
                                     <li>React</li>
