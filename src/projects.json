@@ -59,15 +59,15 @@
         },
         {
             "id": 5,
-            "title": "Mock Game Forum Site",
+            "title": "Game Tracker App",
             "timeframe": "Jan. 2024 - Feb. 2024",
             "src": "../img/gameForum.png",
-            "alt": "Game forum site",
+            "alt": "Game tracking site",
             "isPersonal": true,
             "isWork": false,
             "repository": "https://github.com/dennis0802/gameSite", 
-            "partialDesc": "A mock game forum site using Express and MongoDB where users can view and contribute to discussions about games...",
-            "fullDesc": "A mock game forum site using Express and MongoDB where users can view and contribute to discussions about games with moderated discussion.",
+            "partialDesc": "A web application using Express and MongoDB where users can view and contribute to discussions about games...",
+            "fullDesc": "A web application using Express and MongoDB where users can view and contribute to discussions about games with moderated discussion. Administrators can list the games they have played and open the topic for discussion.",
             "tools": ["Express", "MongoDB", "Node.js", "CSS", "JavaScript"]
         },
         {
