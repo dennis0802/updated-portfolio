@@ -7,10 +7,10 @@ import { motion } from "framer-motion";
 import { Button, Carousel, Image, Modal, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import PlayerInfoCarousel from "../../components/mtg/playerInfoCarousel.component";
 
 const MTGGame = () => {
-    const [setTime, startTime, stopTime, second] = Timer({secProp: localStorage.getItem("timeLimit") * 60});
-    //const [setTime, startTime, stopTime, second] = Timer({secProp: 5});
+    const [setTime, startTime, stopTime, second] = Timer({secProp: parseInt(localStorage.getItem("timeLimit")) * 60});
     const [playerTurn, setPlayerTurn] = useState(0);
     const [resetNecessary, setResetNecessary] = useState(false);
     const [timerRunning, setTimerRunning] = useState(false);
@@ -58,14 +58,12 @@ const MTGGame = () => {
         const current = parseInt(localStorage.getItem("numPlayers")) === (playerTurn+1) ? 0 : (playerTurn+1);
         setPlayerTurn(current);
         localStorage.setItem("playerTurn", (current).toString())
-
-        //setPlayerTurn((t) => t===localStorage.getItem("numPlayers")-1 ? 0 : t+=1)
         setResetNecessary(false);
+
         if(localStorage.getItem("timeLimit") !== "0"){
             startTime();
             setTime("reset");
         }
-
         checkWin();
     }
 
@@ -236,11 +234,7 @@ const MTGGame = () => {
                 <Carousel.Item key={player.id} onClick={() => {openPlayerModal(player.id)}}>
                     <Image src={player.imageUrl} width={265} height={370} alt={player.name + "'s commander"} style={{opacity: 0.6}} rounded/>
                     <Carousel.Caption>
-                        <h1 style={{color: "white", textShadow: "2px 2px 0px #000000"}}><b>{player.health}</b></h1>
-                        <h3 style={{color: "white", textShadow: "2px 2px 0px #000000"}}><b>{player.name}</b></h3>
-                        <p style={{color: "white", textShadow: "2px 2px 0px #000000"}}><b>{player.commanderName}</b></p>
-                        <p style={{color: "red", textShadow: "2px 2px 0px #000000"}}><b>{playerData[index].health <= 0 || playerData[index].commanderDamage >= 21 ? "ELIMINATED" : ""}</b></p>
-                        <p style={{color: "lime", textShadow: "2px 2px 0px #000000"}}><b>{index === winIndex ? "WINNER" : ""}</b></p>
+                        <PlayerInfoCarousel player={player} playerData={playerData} index={index} winIndex={winIndex}/>
                     </Carousel.Caption>
                 </Carousel.Item>
             ))
@@ -291,10 +285,11 @@ const MTGGame = () => {
                     <h1 className="mt-3">{localStorage.getItem("title")}</h1>
                     {winIndex === -1 ?
                         <>
-                        {resetNecessary ? 
-                            <h2 className="mt-3">Time to pass your turn!</h2>
+                        {resetNecessary ? <h2 className="mt-3">Time to pass your turn!</h2>
                             : 
-                            <>{localStorage.getItem("timeLimit") !== "0" ? <h2 className="mt-3">{Math.floor(second/60)}:{second % 60 <= 9 ? "0" + second % 60 : second % 60}</h2> : ""}</>
+                            <>
+                                {localStorage.getItem("timeLimit") !== "0" && <h2 className="mt-3">{Math.floor(second/60)}:{second % 60 <= 9 ? "0" + second % 60 : second % 60}</h2>}
+                            </>
                         }
                         </>
                     :
@@ -359,7 +354,7 @@ const MTGGame = () => {
                         </Modal.Footer>
                     </Modal>
 
-                    {playerModal ? 
+                    {playerModal && 
                         <Modal show={playerModal} onHide={closeModal} style={{marginLeft: "auto", marginRight: "auto", textAlign: "center"}}>
                             <Modal.Header closeButton>
                             <Modal.Title>PLAYER {selectedPlayer+1}: {playerData[selectedPlayer].name}</Modal.Title>
@@ -432,8 +427,6 @@ const MTGGame = () => {
                                 </Button>
                             </Modal.Footer>
                         </Modal>
-                        :
-                        ""
                     }
 
                     <Modal show={htpModal} onHide={closeModal}>
@@ -548,7 +541,7 @@ const MTGGame = () => {
                     >
                         Pass Turn
                     </Button>
-                    {playerData.length !== 0 ? <p className="mt-2">It is currently <b>{playerData[playerTurn].name}'s</b> turn to play.</p> : ""} 
+                    {playerData.length !== 0 && <p className="mt-2">It is currently <b>{playerData[playerTurn].name}'s</b> turn to play.</p>} 
 
                     {carousel}
 

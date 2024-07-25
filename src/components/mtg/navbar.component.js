@@ -27,8 +27,10 @@ function MTGNavbar({inGame}) {
                 <Navbar.Brand as={Link} to="/mtgHome" style={{color: "white", fontWeight:"bold"}}>            
                   MTG Tracker
                 </Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 {inGame ? 
+                <>
+                  <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                
                         <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <Nav.Link 
@@ -39,6 +41,7 @@ function MTGNavbar({inGame}) {
                             </Nav.Link>
                         </Nav>
                         </Navbar.Collapse>
+                </>
                     :
                     ""
                 }

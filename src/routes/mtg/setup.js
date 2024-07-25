@@ -3,9 +3,10 @@ import MTGNavbar from "../../components/mtg/navbar.component";
 import "../../styles.css"
 import Footer from "../../components/footer.component";
 import { motion } from "framer-motion";
-import { Button, Col, Container, Modal, Row, Spinner } from "react-bootstrap";
+import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Loading from "../../components/mtg/loading.component";
 
 const MTGSetup = () => {
     // A game must consist of AT LEAST 2 people
@@ -172,7 +173,6 @@ const MTGSetup = () => {
                             required
                             value={playerData[index].name}
                             onChange={(e) => {onChangePlayerName(e.target.value, index)}}
-                            // onPaste={(e) => {e.preventDefault()}}
                             style={{width: "40%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}
                             name={"player" + (index+1) + "Name"}
                         />
@@ -187,8 +187,7 @@ const MTGSetup = () => {
                             required
                             value={playerData[index].commanderName}
                             onChange={(e) => {onChangePlayerCommanderName(e.target.value, index)}}
-                            // onPaste={(e) => {e.preventDefault()}}
-                            style={{width: "40%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}
+                            style={{width: "60%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}
                             name={"player" + (index+1) + "Commander"}
                         />
                     </div>
@@ -271,101 +270,91 @@ const MTGSetup = () => {
                         </Modal.Footer>
                     </Modal>
 
-                    {submissionStatus === true ?
-                        <>
-                            <Spinner animation="border" variant="info" className="mt-3">
-                                <span className="visually-hidden">Creating your game...</span>
-                            </Spinner>
-                            <p>Creating your game...</p>
-                        </>
-                    :
-                        ""
-                    }
-                        <div className="submit-form">
-                            <div className="form-group mt-2">
-                                <label className="mt-2" htmlFor="gameName">*Game Name:</label>
-                                <input
-                                    type="text"
-                                    className="form-control mb-2"
-                                    id="gameName"
-                                    required
-                                    value={gameName}
-                                    onChange={(e) => {setGameName(e.target.value)}}
-                                    // onPaste={(e) => {e.preventDefault()}}
-                                    style={{width: "60%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}
-                                    name="gameName"
-                                />
-                                <label htmlFor="players">Number of Players:</label>
-                                <input
-                                    type="number"
-                                    className="form-control"
-                                    id="players"
-                                    required
-                                    value={numPlayers}
-                                    min={2}
-                                    max={15}
-                                    disabled
-                                    style={{width: "20%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}
-                                    name="players"
-                                />
-                                <Button 
-                                    variant="success" 
-                                    className="mt-2 mx-2"
-                                    onClick={() => {increasePlayers(numPlayers+1)}}
-                                >
-                                    <b>+</b>
-                                </Button>
-                                <Button 
-                                    variant="danger" 
-                                    className="mt-2 mx-2"
-                                    onClick={() => {decreasePlayers(numPlayers-1)}}
-                                >
-                                    <b>-</b>
-                                </Button>
-
-                                <br/>
-
-                                <label className="mt-2" htmlFor="timer">Minutes Per Player (For infinite time, enter 0):</label>
-                                <input
-                                    type="number"
-                                    className="form-control"
-                                    id="timer"
-                                    required
-                                    value={timer}
-                                    min={5}
-                                    max={20}
-                                    onChange={(e) => {onChangeTimer(e.target.value)}}
-                                    onPaste={(e) => {e.preventDefault()}}
-                                    style={{width: "20%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}
-                                    name="timer"
-                                />
-                            </div>
-                            
-                            <hr style={{width: "20%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}/>
-
-                            <Container>
-                                {blocks}
-                            </Container>
-
-                            <hr style={{width: "20%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}/>
-
+                    {submissionStatus && <Loading msg={"Creating your game..."}/>}
+                    <div className="submit-form">
+                        <div className="form-group mt-2">
+                            <label className="mt-2" htmlFor="gameName">*Game Name:</label>
+                            <input
+                                type="text"
+                                className="form-control mb-2"
+                                id="gameName"
+                                required
+                                value={gameName}
+                                onChange={(e) => {setGameName(e.target.value)}}
+                                style={{width: "60%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}
+                                name="gameName"
+                            />
+                            <label htmlFor="players">Number of Players:</label>
+                            <input
+                                type="number"
+                                className="form-control"
+                                id="players"
+                                required
+                                value={numPlayers}
+                                min={2}
+                                max={15}
+                                disabled
+                                style={{width: "20%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}
+                                name="players"
+                            />
                             <Button 
                                 variant="success" 
                                 className="mt-2 mx-2"
-                                onClick={startGame}
+                                onClick={() => {increasePlayers(numPlayers+1)}}
                             >
-                                <b>Start Game</b>
-                            </Button><br/>
-
+                                <b>+</b>
+                            </Button>
                             <Button 
-                                variant="success" 
+                                variant="danger" 
                                 className="mt-2 mx-2"
-                                onClick={() => {setOpenAbout(true)}}
+                                onClick={() => {decreasePlayers(numPlayers-1)}}
                             >
-                                <b>About</b>
+                                <b>-</b>
                             </Button>
 
+                            <br/>
+
+                            <label className="mt-2" htmlFor="timer">Minutes Per Player (For infinite time, enter 0):</label>
+                            <input
+                                type="number"
+                                className="form-control"
+                                id="timer"
+                                required
+                                value={timer}
+                                min={5}
+                                max={20}
+                                onChange={(e) => {onChangeTimer(e.target.value)}}
+                                onPaste={(e) => {e.preventDefault()}}
+                                style={{width: "20%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}
+                                name="timer"
+                            />
                         </div>
+                            
+                        <hr style={{width: "20%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}/>
+
+                        <Container>
+                            {blocks}
+                        </Container>
+
+                        <hr style={{width: "20%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}/>
+
+                        <Button 
+                            variant="success" 
+                            className="mt-2 mx-2"
+                            onClick={startGame}
+                        >
+                            <b>Start Game</b>
+                        </Button><br/>
+
+                        <Button 
+                            variant="success" 
+                            className="mt-2 mx-2"
+                            onClick={() => {setOpenAbout(true)}}
+                        >
+                            <b>About</b>
+                        </Button>
+
+                    </div>
                 </motion.div>
             </div>
             <Footer />
