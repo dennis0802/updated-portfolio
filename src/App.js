@@ -9,6 +9,8 @@ import Experience from './routes/experience';
 import ContactRoute from './routes/contact';
 import ProjectsPage from './routes/projects';
 import GraphicsPage from './routes/graphicdesign';
+import MTGSetup from './routes/mtg/setup';
+import MTGGame from './routes/mtg/game';
 
 function App() {
   return (
@@ -22,6 +24,10 @@ function App() {
         <Route path="/skills" element={<Skills/>} />
         <Route path="/experience" element={<Experience />}/>
         <Route path="/contact" element={<ContactRoute />}/>
+
+        <Route path="/mtgHome" element={<MTGSetup />}/>
+        <Route path="/mtgGame" element={<MTGGame />}/>
+        
         <Route path="*" element={<ErrorPage />}/>
       </Routes>
     </Router>

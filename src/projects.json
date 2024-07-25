@@ -2,6 +2,19 @@
     "projects": [[
         {
             "id": 1,
+            "title": "MTG Companion Site",
+            "timeframe": "Jul. 2024 - Ongoing",
+            "src": "../img/temp.png",
+            "alt": "MTG Companion Site",
+            "isPersonal": true,
+            "link": "../mtgHome",
+            "repository": "https://github.com/dennis0802/updated-portfolio",
+            "partialDesc": "A companion site attached to my portfolio to help speed up efficiencies for playing Magic The Gathering (MTG), especially for games I have...",
+            "fullDesc": "A companion site attached to my portfolio to help speed up efficiencies for playing Magic The Gathering (MTG), especially for games I have been a part of. Some efficiencies to speed up include listing up to 15 players, having an optional timer per player's turn, consulting MTG's API, and adjusting player stats. With the timer enabled and infromation available to manage and consult, this speeds up matches by 50%.",
+            "tools": ["React", "Node.js", "Bootstrap", "HTML", "CSS", "JavaScript", "JSON"]
+        },
+        {
+            "id": 2,
             "title": "Personal Portfolio",
             "timeframe": "Sept. 2023 - June 2024",
             "src": "../img/portfolio.png",
@@ -14,7 +27,7 @@
             "tools": ["React", "Node.js", "Bootstrap", "HTML", "CSS", "JavaScript", "JSON"]
         },
         {
-            "id": 2,
+            "id": 3,
             "title": "Art Portfolio",
             "timeframe": "May 2024 - June 2024",
             "src": "../img/art_portfolio.png",
@@ -25,9 +38,11 @@
             "partialDesc": "A full-stack portfolio application to display the artwork I have done with visual arts and digital art hobbies since May 2019...",
             "fullDesc": "A full-stack portfolio application to display the artwork I have done with visual arts and digital art hobbies since May 2019. Using a CRUD system and an Express REST API to manage this artwork, data can be managed and displayed 50% more efficiently than the initial file folder system approach.",
             "tools": ["React", "Express", "PostgreSQL", "REST", "Bootstrap", "Node.js", "HTML", "CSS", "JavaScript"]
-        },
+        }
+    ],
+    [
         {
-            "id": 3,
+            "id": 4,
             "title": "Employee Wiki",
             "timeframe": "Mar. 2024 - May 2024",
             "src": "../img/hris.png",
@@ -39,11 +54,9 @@
             "partialDesc": "A full-stack HRIS system application built using SpringBoot to help businesses keep track of employee information and payroll...",
             "fullDesc": "A full-stack HRIS system application built using SpringBoot to help businesses keep track of employee information and payroll. Employees can also use it to view and change their information.",
             "tools": ["SpringBoot", "JPA", "Java", "HTML", "CSS", "JavaScript"]
-        }
-    ],
-    [
+        },
         {
-            "id": 4,
+            "id": 5,
             "title": "Meeting Room Simulator",
             "timeframe": "Feb. 2024 - ON HIATUS",
             "src": "../img/meetingSim.png",
@@ -58,7 +71,7 @@
             "tools": ["Unity", "C#", "MongoDB", "Video Game"]
         },
         {
-            "id": 5,
+            "id": 6,
             "title": "Game Tracker App",
             "timeframe": "Jan. 2024 - Feb. 2024",
             "src": "../img/gameForum.png",
@@ -69,9 +82,11 @@
             "partialDesc": "A web application using Express and MongoDB where users can view and contribute to discussions about games...",
             "fullDesc": "A web application using Express and MongoDB where users can view and contribute to discussions about games with moderated discussion. Administrators can list the games they have played and open the topic for discussion.",
             "tools": ["Express", "MongoDB", "Node.js", "CSS", "JavaScript"]
-        },
+        }
+    ],
+    [
         {
-            "id": 6,
+            "id": 7,
             "title": "The Western Trail",
             "timeframe": "Jan. 2023 - Dec. 2023",
             "src": "../img/westernTrail.png",
@@ -85,11 +100,9 @@
             "partialDesc": "A Unity 3D capstone game where the player is the leader of a team of four people surviving from Montreal to Vancouver in a fictional...",
             "fullDesc": "A Unity 3D capstone game where the player is the leader of a team of four people surviving from Montreal to Vancouver in a fictional post-apocalyptic scenario. Players will have to manage their resources while travelling and resting and defend themselves from the mutants that wander the land. Players can have up to four different save files.",
             "tools": ["Unity", "C#", "SQLite", "SQLCipher", "Video Game", "COMP-4990"]
-        }
-    ],
-    [
+        },
         {
-            "id": 7,
+            "id": 8,
             "title": "Mental Health Database Application",
             "timeframe": "Sept. 2023 - Nov. 2023",
             "src": "../img/mentalHealthDB.png",
@@ -105,7 +118,7 @@
             "tools": ["Python", "Flask", "SQLite", "HTML", "CSS", "Group Project", "COMP-4150"]
         },
         {
-            "id": 8,
+            "id": 9,
             "title": "Inventory Management App",
             "timeframe": "Sept. 2022 - Aug. 2023",
             "src": "../img/inventoryApp.png",
@@ -116,9 +129,11 @@
             "partialDesc": "A Power Platform project during my 3rd and 4th co-op position to help an IT department manage their assets 40% more efficiently by visualizing...",
             "fullDesc": "A Power Platform project during my 3rd and 4th co-op position to help an IT department manage their assets 40% more efficiently by visualizing and tracking their data and automating the processes within it. End-users would be able to create items, see the amount in stock, take/return assets, view laptop status, USB status, and printer status, and output the data in multiple formats.",
             "tools": ["Power Platform", "Microsoft 365", "Power Fx", "Work"]
-        },
+        }
+    ],
+    [
         {
-            "id": 9,
+            "id": 10,
             "title": "Capture the Flag AI",
             "timeframe": "Jan. 2023 - Apr. 2023",
             "src": "../img/ctf_ai.png",
@@ -130,11 +145,9 @@
             "partialDesc": "A Unity 3D project to showcase goal-oriented behaviour for agents playing a game of capture the flag with elements of king of the hill...",
             "fullDesc": "A Unity 3D project to showcase goal-oriented behaviour for agents playing a game of capture the flag with elements of king of the hill. Agents are split into two teams with three different possible roles, can decide what weapon they want to equip, and can decide what action to do. Flags can be captured and control points can be captured to help their team.",
             "tools": ["Unity", "C#", "Video Game", "COMP-4770"]
-        }
-    ],
-    [
+        },
         {
-            "id": 10,
+            "id": 11,
             "title": "Tabletop Games",
             "timeframe": "Jul. 2022 - Aug. 2022",
             "src": "../img/tabletop_ecom.png",
@@ -147,9 +160,8 @@
             "fullDesc": "A full-stack PHP website where end-users can purchase tabletop games while admins use the built-in content management system to manage site content. A friend that I demoed the project commented that the project was better with the UI than some of the similar sites they've been on. ",
             "tools": ["HTML", "CSS", "PHP", "MySQL", "COMP-2707"]
         },
-
         {
-            "id": 11,
+            "id": 12,
             "title": "RS Reporting Application",
             "timeframe": "Jan. 2022 - Mar. 2022",
             "src": "../img/ssrs.png",
@@ -160,9 +172,11 @@
             "partialDesc": "A SQL Server project during my 2nd co-op position to help an IT department translate their legacy system AS400 queries into...",
             "fullDesc": "A SQL Server project during my 2nd co-op position to help an IT department translate their legacy system AS400 queries into efficient queries for a full stack application, now used by 200+ employees. Queries were designed with temporary tables in the process to help speed the query up as much as possible.",
             "tools": ["SQL Server", "SSMS", "SSRS Report Builder", "ADUC", "Work"]
-        },
+        }
+    ],
+    [
         {
-            "id": 12,
+            "id": 13,
             "title": "Online Capture the Flag",
             "timeframe": "Oct. 2021 - Dec. 2021",
             "src": "../img/ctf_online.png",
