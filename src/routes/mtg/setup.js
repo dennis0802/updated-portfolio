@@ -132,7 +132,6 @@ const MTGSetup = () => {
         for(let i = 0; i < numPlayers; i++){
             const p = axios.get(`https://api.magicthegathering.io/v1/cards?name=${playerData[i].commanderName}`)
             .then(res => {
-                console.log("yes");
                 const card = res.data.cards.filter(c => c.imageUrl && c.legalities.find(l => l.format === 'Commander'))[0];
                 playerData[i].imageUrl = card.imageUrl;
                 playerData[i].verifiedCommander = card.name;

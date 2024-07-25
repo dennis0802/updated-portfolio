@@ -77,6 +77,10 @@ const MTGGame = () => {
 
         if(aliveIndex.length === 1){
             setWinIndex(aliveIndex[0]);
+            localStorage.setItem("winIndex", aliveIndex[0])
+        }
+        else if(localStorage.getItem("winIndex") !== null && parseInt(localStorage.getItem("winIndex")) !== -1){
+            setWinIndex(parseInt(localStorage.getItem("winIndex")));
         }
     }
 
@@ -116,10 +120,8 @@ const MTGGame = () => {
 
     // Player handlers
     const openPlayerModal = (id) => {
-        if(winIndex === -1){
-            setSelectedPlayer(id-1);
-            setPlayerModal(true);
-        }
+        setSelectedPlayer(id-1);
+        setPlayerModal(true);
     }
 
     const onChangeHP = (size) => size < 0 ? setHealthChange(0) : size > playerData[selectedPlayer].health ? setHealthChange(playerData[selectedPlayer].health) : setHealthChange(size);
@@ -223,7 +225,8 @@ const MTGGame = () => {
         }
         setPlayerTurn(parseInt(localStorage.getItem("playerTurn")) ? parseInt(localStorage.getItem("playerTurn")) : 0)
         setPlayerData(localStoragePlayerData);
-        console.log(localStoragePlayerData);
+        checkWin();
+
         setMounted(true)
     }
 
@@ -374,6 +377,7 @@ const MTGGame = () => {
                                     }
                                 </p>
 
+                                {winIndex === -1 &&
                                 <div className="submit-form">
                                     <label className="mt-1" htmlFor="hpChange">Change HP:</label>
                                     <input
@@ -419,6 +423,7 @@ const MTGGame = () => {
                                     </Button><br/>
 
                                 </div>
+                                }
                                 <p>Your commander will cost {2*playerData[selectedPlayer].commanderDeaths} more mana of any color to cast, plus the regular cost.</p>
                             </Modal.Body>
                             <Modal.Footer>
@@ -536,12 +541,12 @@ const MTGGame = () => {
 
                     {/* BUTTONS */}
                     <p></p>
-                    <Button
+                    {winIndex === -1 && <Button
                         onClick={onHandlePassTurn}
                     >
                         Pass Turn
-                    </Button>
-                    {playerData.length !== 0 && <p className="mt-2">It is currently <b>{playerData[playerTurn].name}'s</b> turn to play.</p>} 
+                    </Button>}
+                    {(playerData.length !== 0 && winIndex === -1) && <p className="mt-2">It is currently <b>{playerData[playerTurn].name}'s</b> turn to play.</p>} 
 
                     {carousel}
 
