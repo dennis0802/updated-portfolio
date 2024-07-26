@@ -34,22 +34,25 @@ const MTGSetup = () => {
     }, [])
 
     // Player number handlers
-    const increasePlayers = (players) => {
-        players > 15 ? setNumPlayers(15) :setNumPlayers(players);
-        setPlayerData(
-            [
-                ...playerData,
-                {id: players > 15 ? 15 : players, name: "", commanderName: "", health: 40, commanderDamage: 0, commanderDeaths: 0, imageUrl: '../../img/card_placeholder.png', verifiedCommander: ''}
-            ]
-        )
+    const increasePlayers = (newPlayers) => {
+        if(newPlayers <= 15){
+            setNumPlayers(newPlayers)
+            setPlayerData(
+                [
+                    ...playerData,
+                    {id: newPlayers, name: "", commanderName: "", health: 40, commanderDamage: 0, commanderDeaths: 0, imageUrl: '../../img/card_placeholder.png', verifiedCommander: ''}
+                ]
+            )
+        }
     }
 
-    const decreasePlayers = (players) => {
-        setPlayerData(
-            playerData.filter(p => p.id !== numPlayers)
-        )
-
-        players < 2 ? setNumPlayers(2) : setNumPlayers(players);
+    const decreasePlayers = (newPlayers) => {
+        if(newPlayers >= 2){
+            setPlayerData(
+                playerData.filter(p => p.id !== numPlayers)
+            )
+            setNumPlayers(newPlayers);
+        }
     }
 
     // Player name handler
@@ -249,7 +252,7 @@ const MTGSetup = () => {
                             <h4><b>WHY MAKE THIS?</b></h4>
                             <p>
                                 Interested in trying to speed up some of our MTG games (we've gone upwards to 7 hours... though that might be at fault from board wipes
-                                with 6+ people, but that's besides the point) and solve some of our current limitations with present apps not supporting large groups and having 
+                                with 6+ people, but that's besides the point) with some friends and solve some of our current limitations with present apps not supporting large groups and having 
                                 to look all over the place for information, I created this MTG tracker to track stats during games.<br/><br/>Features include being able to consult 
                                 for other cards, an easy to find link for advanced rulings, optional time limits for player turns, match customization, and built-in dice rolling.
                             </p>

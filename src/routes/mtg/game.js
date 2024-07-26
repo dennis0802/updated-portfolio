@@ -22,6 +22,7 @@ const MTGGame = () => {
     const [diceOutcome, setDiceOutcome] = useState(Array(0));
     const [diceOutcomeSize, setDiceOutcomeSize] = useState(0);
     const [diceOutcomeAmount, setDiceOutcomeAmount] = useState(0);
+    const [timeRolled, setTimeRolled] = useState('');
 
     const [playerModal, setPlayerModal] = useState(false);
     const [selectedPlayer, setSelectedPlayer] = useState(0);
@@ -109,6 +110,7 @@ const MTGGame = () => {
     
     const rollDice = () => {
         const rolls = [];
+        const current = new Date();
 
         for(let i = 0; i < diceAmount; i++){
             rolls.push(Math.floor(Math.random() * diceSize) + 1);
@@ -116,6 +118,7 @@ const MTGGame = () => {
         setDiceOutcomeAmount(diceAmount);
         setDiceOutcomeSize(diceSize);
         setDiceOutcome(rolls);
+        setTimeRolled(current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds() + ":" + current.getMilliseconds());
     }
 
     // Player handlers
@@ -337,13 +340,24 @@ const MTGGame = () => {
                                     name="diceType"
                                 />
 
-                                <p>{diceOutcome.length === 0 ? "" : "With " + diceOutcomeAmount + "D" + diceOutcomeSize + ", you rolled: "}</p>
-                                <ul>
-                                    {diceOutcome.map((roll, index) => (
-                                        <li key={index}>{roll}</li>
-                                    ))
-                                    }
-                                </ul>
+                                {diceOutcome.length !== 0 &&
+                                <>
+                                    <p>({timeRolled}) With {diceOutcomeAmount} D{diceOutcomeSize} + you rolled:</p>
+                                    <ul>
+                                        {diceOutcome.map((roll, index) => (
+                                            <li key={index}>{roll}</li>
+                                        ))
+                                        }
+                                    </ul>
+
+                                    <p>Other Stats:</p>
+                                    <ul>
+                                        <li>Highest: {diceOutcome.reduce((a,b) => Math.max(parseInt(a), parseInt(b)))}</li>
+                                        <li>Lowest: {diceOutcome.reduce((a,b) => Math.min(parseInt(a), parseInt(b)))}</li>
+                                        <li>Sum: {diceOutcome.reduce((partial, newVal) => partial + newVal, 0)}</li>
+                                    </ul>
+                                </>
+                                }
 
                             </div>
                             <Button className="mt-3" onClick={rollDice}>
