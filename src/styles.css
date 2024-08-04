@@ -53,3 +53,17 @@ img:not(.logoImg) :hover{
     from{border-right-color: #1d305abf; height:25px}
     to{border-right-color: transparent; height:25px}
 }
+
+/* MTG Styles */
+@media only screen and (max-width: 600px) {
+    #playerTable {
+        font-size: 16px;
+    }
+}
+
+/* MTG Styles */
+@media only screen and (max-width: 350px) {
+    #playerTable {
+        font-size: 12px;
+    }
+}

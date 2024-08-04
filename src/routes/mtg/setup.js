@@ -9,24 +9,29 @@ import axios from "axios";
 import Loading from "../../components/mtg/loading.component";
 
 const MTGSetup = () => {
-    // A game must consist of AT LEAST 2 people
-    let initialData = [
-        { id: 1, name: '', commanderName: '', health: 40, commanderDamage: 0, commanderDeaths: 0, imageUrl: '../../img/card_placeholder.png', verifiedCommander: ''},
-        { id: 2, name: '', commanderName: '', health: 40, commanderDamage: 0, commanderDeaths: 0, imageUrl: '../../img/card_placeholder.png', verifiedCommander: ''}
-    ];
-
     const [numPlayers, setNumPlayers] = useState(2);
     const [timer, setTimer] = useState(5);
     const [gameName, setGameName] = useState('My Commander Match')
-    const [playerData, setPlayerData] = useState(initialData);
     const [submissionStatus, setSubmissionStatus] = useState(null);
     const [gameExists, setGameExists] = useState(false);
     const [otherErr, setOtherErr] = useState(false);
     const [openAbout, setOpenAbout] = useState(false);
+    const [d20Result, setd20Result] = useState(0);
+    const [d20RollTime, setd20RollTime] = useState(new Date());
+    const [startingHP, setStartingHP] = useState(40);
     const navigate = useNavigate();
+
+    // A game must consist of AT LEAST 2 people
+    let initialData = [
+        { id: 1, name: '', commanderName: '', health: startingHP, commanderDamage: Array(numPlayers).fill(0), commanderDeaths: 0, poisonCounters: 0, imageUrl: '../../img/card_placeholder.png', verifiedCommander: ''},
+        { id: 2, name: '', commanderName: '', health: startingHP, commanderDamage: Array(numPlayers).fill(0), commanderDeaths: 0, poisonCounters: 0, imageUrl: '../../img/card_placeholder.png', verifiedCommander: ''}
+    ];
+
+    const [playerData, setPlayerData] = useState(initialData);
 
     // Check if a game exists
     useEffect(() => {
+        document.title = 'MTG Tracker';
         const exists = localStorage.getItem("gameStarted")
         if(exists !== null){
             setGameExists(true);
@@ -37,10 +42,14 @@ const MTGSetup = () => {
     const increasePlayers = (newPlayers) => {
         if(newPlayers <= 15){
             setNumPlayers(newPlayers)
+            let temp = playerData;
+            for(let i = 0; i < playerData.length; i++){
+                temp[i].commanderDamage = Array(numPlayers).fill(0)
+            }
             setPlayerData(
                 [
-                    ...playerData,
-                    {id: newPlayers, name: "", commanderName: "", health: 40, commanderDamage: 0, commanderDeaths: 0, imageUrl: '../../img/card_placeholder.png', verifiedCommander: ''}
+                    ...temp,
+                    {id: newPlayers, name: "", commanderName: "", health: startingHP, commanderDamage: Array(numPlayers).fill(0), commanderDeaths: 0, poisonCounters: 0, imageUrl: '../../img/card_placeholder.png', verifiedCommander: ''}
                 ]
             )
         }
@@ -63,9 +72,10 @@ const MTGSetup = () => {
                     id: player.id,
                     name: newName,
                     commanderName: player.commanderName,
-                    health: 40, 
-                    commanderDamage: 0, 
+                    health: startingHP, 
+                    commanderDamage: Array(numPlayers).fill(0), 
                     commanderDeaths: 0, 
+                    poisonCounters: 0,
                     imageUrl: player.imageUrl, 
                     verifiedCommander: ''
                 }
@@ -85,9 +95,10 @@ const MTGSetup = () => {
                     id: player.id,
                     name: player.name,
                     commanderName: newCommander,
-                    health: 40, 
-                    commanderDamage: 0, 
+                    health: startingHP, 
+                    commanderDamage: Array(numPlayers).fill(0), 
                     commanderDeaths: 0, 
+                    poisonCounters: 0,
                     imageUrl: player.imageUrl, 
                     verifiedCommander: ''
                 }
@@ -100,7 +111,16 @@ const MTGSetup = () => {
     }
 
     // Timer handler
-    const onChangeTimer = (timerVal) => timerVal < 0 ? setTimer(0) : timerVal > 20 ? setTimer(20) : setTimer(timerVal);
+    const onChangeTimer = (timerVal) => timerVal < 0 ? setTimer(0) : timerVal > 20 ? setTimer(20) : setTimer(Math.round(timerVal));
+
+    // Dice handler for turn order
+    const rollD20 = () => {
+        setd20Result(Math.floor(Math.random() * 20) + 1)
+        setd20RollTime(new Date());
+    }
+
+    // HP handler
+    const onChangeHP = (newVal) => newVal < 20 ? setStartingHP(30) : newVal > 60 ? setStartingHP(60) : setStartingHP(newVal);
 
     // Submission
     const startGame = () => {
@@ -178,9 +198,7 @@ const MTGSetup = () => {
                             style={{width: "40%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}
                             name={"player" + (index+1) + "Name"}
                         />
-                    </div>
 
-                    <div className="form-group">
                         <label className="mt-2" htmlFor={"player" + (index+1) + "Commander"}>*Commander Name:</label>
                         <input
                             type="text"
@@ -210,7 +228,10 @@ const MTGSetup = () => {
                     transition={{duration: "0.4"}}
                 >
                     <h1 className="mt-3">Magic The Gathering (MTG) Tracker</h1>
-                    <p>Welcome! This tracker can be used to track your <b>MTG Commander</b> matches. Please enter your game information in the form below to start tracking your game's stats!</p>
+                    <p>
+                        Welcome! This tracker can be used to track your <b>MTG Commander</b> matches. Please enter your game information in the form below to start 
+                        tracking your game's stats!
+                    </p>
 
                     {submissionStatus === false ? 
                         <div className="mt-2" style={{color: "red", outline: "1px solid red", width: "20%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}>
@@ -251,10 +272,14 @@ const MTGSetup = () => {
                         <Modal.Body>
                             <h4><b>WHY MAKE THIS?</b></h4>
                             <p>
-                                Interested in trying to speed up some of our MTG games (we've gone upwards to 7 hours... though that might be at fault from board wipes
-                                with 6+ people, but that's besides the point) with some friends and solve some of our current limitations with present apps not supporting large groups and having 
-                                to look all over the place for information, I created this MTG tracker to track stats during games.<br/><br/>Features include being able to consult 
-                                for other cards, an easy to find link for advanced rulings, optional time limits for player turns, match customization, and built-in dice rolling.
+                                My interest in making this companion site was in attempting to speed up some of MTG games with friends <i>(we've gone upwards to 7 hours... 
+                                though that might be at fault from board wipes with 6+ people, but that's besides the point)</i>.
+                            </p>
+                            <p>
+                                Additionally, I wanted to solve some of our current limitations with present apps not supporting large groups <i>(we've used a 6-person app when 
+                                there's 8+ of us)</i>and having to look all over the place for information during MTG games.<br/><br/>Site features include being able to consult 
+                                for other cards by name, an easy to find link for advanced rulings, optional time limits for player turns, match customization, and 
+                                built-in dice rolling.
                             </p>
 
                             <h4><b>USE OF DATA</b></h4>
@@ -274,6 +299,23 @@ const MTGSetup = () => {
 
                     {submissionStatus && <Loading msg={"Creating your game..."}/>}
                     <div className="submit-form">
+                        <Button 
+                            variant="success" 
+                            className="mt-2 mx-2"
+                            onClick={startGame}
+                        >
+                            <b>Start Game</b>
+                        </Button><br/>
+                        <Button 
+                            variant="success" 
+                            className="mt-2 mx-2"
+                            onClick={rollD20}
+                        >
+                            <b>Roll a D20</b>
+                        </Button><br/>
+
+                        {d20Result !== 0 && <p>You rolled a {d20Result} at {d20RollTime.getHours()}:{d20RollTime.getMinutes()}:{d20RollTime.getSeconds() < 10 ? "0" + d20RollTime.getSeconds() : d20RollTime.getSeconds()}:{d20RollTime.getMilliseconds()}.</p>}
+
                         <div className="form-group mt-2">
                             <label className="mt-2" htmlFor="gameName">*Game Name:</label>
                             <input
@@ -313,7 +355,22 @@ const MTGSetup = () => {
                             >
                                 <b>-</b>
                             </Button>
+                            <br/>
 
+                            <label htmlFor="players">Starting Player HP:</label>
+                            <input
+                                type="number"
+                                className="form-control"
+                                id="players"
+                                required
+                                value={startingHP}
+                                min={20}
+                                max={60}
+                                style={{width: "20%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}
+                                onChange={(e) => {onChangeHP(e.target.value)}}
+                                onPaste={(e) => {e.preventDefault()}}
+                                name="players"
+                            />
                             <br/>
 
                             <label className="mt-2" htmlFor="timer">Minutes Per Player (For infinite time, enter 0):</label>
