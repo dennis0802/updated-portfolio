@@ -81,10 +81,12 @@ const MTGGame = () => {
         }
 
         if(aliveIndex.length === 1){
+            stopTime();
             setWinIndex(aliveIndex[0]);
             localStorage.setItem("winIndex", aliveIndex[0])
         }
         else if(localStorage.getItem("winIndex") !== null && parseInt(localStorage.getItem("winIndex")) !== -1){
+            stopTime();
             setWinIndex(parseInt(localStorage.getItem("winIndex")));
         }
     }
