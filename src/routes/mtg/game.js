@@ -251,8 +251,9 @@ const MTGGame = () => {
 
     const applySearch = (suggestionApplied = false, suggestion = null) => {
         suggestionApplied ? setSearchTerm(suggestion) : setSearchTerm(cardName);
-        
-        axios.get(`https://api.magicthegathering.io/v1/cards?name=${cardName}`)
+        const term = suggestionApplied ? suggestion : cardName;
+
+        axios.get(`https://api.magicthegathering.io/v1/cards?name=${term}`)
         .then(res => {
             const card = res.data.cards.filter(c => c.imageUrl)[0];
             setCard(card);
@@ -264,7 +265,7 @@ const MTGGame = () => {
 
     // Suggestion completer
     const applySuggestion = (suggestion) => {
-        setCardName(suggestion);
+        setCardName("");
         const nextSuggestions = cardSuggestions.toSpliced(0, cardSuggestions.length);
         setCardSuggestions(nextSuggestions);
         applySearch(true, suggestion);
@@ -635,7 +636,7 @@ const MTGGame = () => {
                                     style={{width: "60%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}
                                     name="cardName"
                                 />
-                                <Button className="mb-2" onClick={applySearch}>
+                                <Button className="mb-2" onClick={() => {applySearch()}}>
                                     Search
                                 </Button>
                                 <br/>
