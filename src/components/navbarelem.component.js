@@ -6,7 +6,7 @@ function MainNavbarElement({props}) {
     return (
         <>
             {props.selected === props.targetID ?
-                <Nav.Link as={Link} style={{backgroundColor:"#101720", borderRadius: "10px", color: "white"}} to={props.target}>{props.targetName}</Nav.Link> 
+                <Nav.Link as={Link} style={{backgroundColor:"#0D244A", borderRadius: "10px", color: "white"}} to={props.target}>{props.targetName}</Nav.Link> 
             :
                 <Nav.Link as={Link} style={{color: "white"}} to={props.target}>{props.targetName}</Nav.Link> 
             }

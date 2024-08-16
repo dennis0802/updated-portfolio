@@ -46,6 +46,9 @@ const MTGGame = () => {
     const [mounted, setMounted] = useState(false)
     const navigate = useNavigate();
 
+    const [searchComplete, setSearchComplete] = useState(false);
+    const [cardSuggestions, setCardSuggestions] = useState(Array(0));
+
     // Get player data to read from
     const localStoragePlayerData = [];
 
@@ -57,6 +60,33 @@ const MTGGame = () => {
             navigate("/mtgHome")
         }
     }, [navigate])
+
+    // Begin a search after 500ms of no typing in the commander field
+    useEffect(() => {
+        const timeoutID = setTimeout(() => {
+            if(cardName && !searchComplete){
+                axios.get(`https://api.magicthegathering.io/v1/cards?name=${cardName}`)
+                .then(res => {
+                    let suggestions = []
+                    for(let i = 0; i < 5; i++){
+                        try{
+                            suggestions.push(res.data.cards[i].name);
+                        }
+                        catch{continue;}
+                    }
+
+                    const results = [...new Set(suggestions)]
+
+                    if(!results.includes(cardName)){
+                        setCardSuggestions(results);
+                    }
+                    setSearchComplete(true);
+                })
+            }
+        }, 500)
+
+        return () => clearTimeout(timeoutID);
+    }, [cardName, searchComplete, cardSuggestions])
 
     // Turn pass handler
     const onHandlePassTurn = () => {
@@ -218,9 +248,9 @@ const MTGGame = () => {
     // Card info
     const openCardInfo = () => setCardInfoModal(true);
 
-    const applySearch = () => {
-        setSearchTerm(cardName)
-
+    const applySearch = (suggestionApplied = false, suggestion = null) => {
+        suggestionApplied ? setSearchTerm(suggestion) : setSearchTerm(cardName);
+        
         axios.get(`https://api.magicthegathering.io/v1/cards?name=${cardName}`)
         .then(res => {
             const card = res.data.cards.filter(c => c.imageUrl)[0];
@@ -229,6 +259,19 @@ const MTGGame = () => {
         .catch(err => {
             setCard(null);
         })
+    }
+
+    // Suggestion completer
+    const applySuggestion = (suggestion) => {
+        setCardName(suggestion);
+        const nextSuggestions = cardSuggestions.toSpliced(0, cardSuggestions.length);
+        setCardSuggestions(nextSuggestions);
+        applySearch(true, suggestion);
+    }
+
+    const onChangeCardName = (cardName) => {
+        setSearchComplete(false);
+        setCardName(cardName);
     }
 
     // Stats
@@ -586,7 +629,7 @@ const MTGGame = () => {
                                     id="cardName"
                                     required
                                     value={cardName}
-                                    onChange={(e) => {setCardName(e.target.value)}}
+                                    onChange={(e) => {onChangeCardName(e.target.value)}}
                                     onPaste={(e) => {e.preventDefault()}}
                                     style={{width: "60%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}
                                     name="cardName"
@@ -595,6 +638,21 @@ const MTGGame = () => {
                                     Search
                                 </Button>
                                 <br/>
+
+                                {cardSuggestions.length > 0 &&
+                                    <>
+                                        Did you mean:<br/>
+                                        {cardSuggestions.map((suggestion, myIndex) => (
+                                            <div key={myIndex}>
+                                                <Button
+                                                    onClick={() => {applySuggestion(suggestion)}}
+                                                >
+                                                    {suggestion}
+                                                </Button>
+                                            </div>
+                                        ))}
+                                    </>
+                                }
 
                                 {searchTerm && 
                                     <>

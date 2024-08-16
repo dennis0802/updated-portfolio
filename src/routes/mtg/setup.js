@@ -16,9 +16,13 @@ const MTGSetup = () => {
     const [gameExists, setGameExists] = useState(false);
     const [otherErr, setOtherErr] = useState(false);
     const [openAbout, setOpenAbout] = useState(false);
+    const [openVer, setOpenVer] = useState(false);
     const [d20Result, setd20Result] = useState(0);
     const [d20RollTime, setd20RollTime] = useState(new Date());
     const [startingHP, setStartingHP] = useState(40);
+    const [commanderSuggestions, setCommanderSuggestions] = useState(Array(numPlayers).fill(Array(0)));
+    const [index, setIndex] = useState(0);
+    const [searchComplete, setSearchComplete] = useState(true);
     const navigate = useNavigate();
 
     // A game must consist of AT LEAST 2 people
@@ -37,6 +41,34 @@ const MTGSetup = () => {
             setGameExists(true);
         }
     }, [])
+
+    // Begin a search after 500ms of no typing in the commander field
+    useEffect(() => {
+        const timeoutID = setTimeout(() => {
+            if(playerData[index].commanderName && !searchComplete){
+                axios.get(`https://api.magicthegathering.io/v1/cards?type=Legendary Creature&name=${playerData[index].commanderName}`)
+                .then(res => {
+                    let commanderNames = []
+                    for(let i = 0; i < 5; i++){
+                        try {
+                            commanderNames.push(res.data.cards[i].name);
+                        } catch {}
+                    }
+                    let suggestions = [...new Set(commanderNames)]
+                    const nextSuggestions = commanderSuggestions.toSpliced(index, 1, suggestions);
+
+                    if(!suggestions.includes(playerData[index].commanderName)){
+                        setCommanderSuggestions(nextSuggestions);
+                    }
+
+                    setSearchComplete(true);
+                })
+                .catch({})
+            }
+        }, 500)
+
+        return () => clearTimeout(timeoutID);
+    }, [playerData, index, commanderSuggestions, searchComplete])
 
     // Player number handlers
     const increasePlayers = (newPlayers) => {
@@ -62,6 +94,31 @@ const MTGSetup = () => {
             )
             setNumPlayers(newPlayers);
         }
+    }
+
+    // Suggestion completer
+    const applySuggestion = (suggestion, index) => {
+        const nextData = playerData.map((player, i) => {
+            if(i === index){
+                return {
+                    id: player.id,
+                    name: player.name,
+                    commanderName: suggestion,
+                    health: startingHP, 
+                    commanderDamage: Array(numPlayers).fill(0), 
+                    commanderDeaths: 0, 
+                    poisonCounters: 0,
+                    imageUrl: player.imageUrl, 
+                    verifiedCommander: ''
+                }
+            }
+            else{
+                return player
+            }
+        })
+        setPlayerData(nextData);
+        const nextSuggestions = commanderSuggestions.toSpliced(index, 1, []);
+        setCommanderSuggestions(nextSuggestions);
     }
 
     // Player name handler
@@ -90,6 +147,9 @@ const MTGSetup = () => {
     // Commander name handler
     const onChangePlayerCommanderName = (newCommander, index) => {
         const nextData = playerData.map((player, i) => {
+            setIndex(index);
+            setSearchComplete(false);
+
             if(i === index){
                 return {
                     id: player.id,
@@ -210,6 +270,21 @@ const MTGSetup = () => {
                             style={{width: "60%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}
                             name={"player" + (index+1) + "Commander"}
                         />
+
+                        {commanderSuggestions[index].length > 0 &&
+                            <>
+                                Did you mean:<br/>
+                                {commanderSuggestions[index].map((suggestion, myIndex) => (
+                                    <div key={myIndex}>
+                                        <Button
+                                            onClick={() => {applySuggestion(suggestion, index)}}
+                                        >
+                                            {suggestion}
+                                        </Button>
+                                    </div>
+                                ))}
+                            </>
+                        }
                     </div>
                     <hr style={{width: "20%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}/>
                 </Col>
@@ -287,6 +362,11 @@ const MTGSetup = () => {
                                 The input data tracked by the site only includes your game's information and players and will only be used to locally display data and retrieve
                                 your commander's data (if they exist) from the Magic The Gathering API.
                             </p>
+
+                            <h4><b>RECENT REVISIONS</b></h4>
+                            <p>
+                                <b>Aug. 16, 2024:</b> Added auto-completion inputs for commander and card names.
+                            </p>
                         </Modal.Body>
                         <Modal.Footer>
                             <p>Please feel free to contact me at <a href="mailto:dennisdao2001@gmail.com">dennisdao2001@gmail.com</a> for any suggestions or issues!</p>
@@ -295,6 +375,19 @@ const MTGSetup = () => {
                                 <li>Sound effect for end of turn belongs to <a href="https://mixkit.co/free-sound-effects/ding/" target="_blank" rel="noopener noreferrer"><i>Mixkit</i></a></li>
                             </ul>
                         </Modal.Footer>
+                    </Modal>
+
+                    <Modal show={openVer} onHide={() => {setOpenVer(false)}}>
+                        <Modal.Header closeButton>
+                        <Modal.Title>Revisions</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <ul>
+                                <li><b>Aug. 16, 2024:</b> Added auto-completion inputs for commander and card names.</li>
+                                <li><b>Aug. 4, 2024:</b> Added more dice stats, counters, correct commander damage, and additional user customization.</li>
+                                <li><b>Jul. 25, 2024:</b> Initial release.</li>
+                            </ul>
+                        </Modal.Body>
                     </Modal>
 
                     {submissionStatus && <Loading msg={"Creating your game..."}/>}
@@ -411,6 +504,14 @@ const MTGSetup = () => {
                             onClick={() => {setOpenAbout(true)}}
                         >
                             <b>About</b>
+                        </Button>
+
+                        <Button 
+                            variant="success" 
+                            className="mt-2 mx-2"
+                            onClick={() => {setOpenVer(true)}}
+                        >
+                            <b>Revisions</b>
                         </Button>
 
                     </div>

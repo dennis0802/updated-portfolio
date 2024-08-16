@@ -2,26 +2,15 @@
     "projects": [[
         {
             "id": 1,
-            "title": "High School Photography Banner",
-            "timeframe": "Sept. 2018 - Jan 2019",
-            "src": "../img/photography_banner.jpg",
-            "alt": "Photography Banner",
-            "isAcademic": true,
-            "partialDesc": "Requested by my high school's technology department head, I was asked to create a banner to display for the photography classes...",
-            "fullDesc": "Requested by my high school's technology department head, I was asked to create a banner to display for the photography classes. The photo was edited to focus more on the camera to emphasize the subject in the camera itself and the displayed settings.",
-            "tools": ["Photoshop"]
-        },
-        {
-            "id": 2,
-            "title": "Off the Map Adventures Ad Templates",
-            "timeframe": "May 2021",
-            "src": "../img/offthemap_ad.png",
-            "alt": "Off the Map ad",
+            "title": "Bulldog for Kids Logo",
+            "timeframe": "Jun. 2021",
+            "src": "../img/BulldogLogo.png",
+            "alt": "Employee Wiki HRIS",
             "isWork": true,
-            "link": "https://offthemap.ca",
-            "partialDesc": "As part of my graphic design work in Digital Main Street for Off the Map Adventures. This was one of the first projects I was dropped into...",
-            "fullDesc": "As part of my graphic design work in Digital Main Street for Off the Map Adventures. This was one of the first projects I was dropped into due to joining the program midway through, but I was ready to pick up what the team was currently working on. I was tasked with creating some advertising templates and they had already started some with Canva. It was easy to pick up where I could then easily drag and drop brand colors and images together to create relevant advertisements.",
-            "tools": ["Canva"]
+            "link": "https://www.guelphbulldog.com/",
+            "partialDesc": "As part of my graphic design work in Digital Main Street for Bulldog For Kids. Part of our work was to redesign their logo and...",
+            "fullDesc": "As part of my graphic design work in Digital Main Street for Bulldog For Kids. Part of our work was to redesign their logo and make their site look more cohesive with brand colours. Using feedback that they liked a simple design and to differentiate from a \"fitness\" component, we started by designing a new logo. Some of our designs would appear too much for preschool or it wasn't to their liking. However, we eventually agreed on the current design of a bouncing ball with some kids chasing after it.",
+            "tools": ["Photoshop"]
         },
         {
             "id": 3,
@@ -34,19 +23,30 @@
             "partialDesc": "As part of my graphic design work in Digital Main Street for Canalside Soda. Part of our work was to provide advertising banners...",
             "fullDesc": "As part of my graphic design work in Digital Main Street for Canalside Soda. Part of our work was to provide advertising banners for them and they wanted a \"big top\" element to it. While my initial design had a Thanksgiving element to it, I was able to narrow it down to a minimalist element that they were happy with. Unfortunately, it appears they've closed sometime after we provided our services to them.",
             "tools": ["Photoshop", "Illustrator"]
+        },
+        {
+            "id": 2,
+            "title": "Off the Map Adventures Ad Templates",
+            "timeframe": "May 2021",
+            "src": "../img/offthemap_ad.png",
+            "alt": "Off the Map ad",
+            "isWork": true,
+            "link": "https://offthemap.ca",
+            "partialDesc": "As part of my graphic design work in Digital Main Street for Off the Map Adventures. This was one of the first projects I was dropped into...",
+            "fullDesc": "As part of my graphic design work in Digital Main Street for Off the Map Adventures. This was one of the first projects I was dropped into due to joining the program midway through, but I was ready to pick up what the team was currently working on. I was tasked with creating some advertising templates and they had already started some with Canva. It was easy to pick up where I could then easily drag and drop brand colors and images together to create relevant advertisements.",
+            "tools": ["Canva"]
         }
     ],
     [
         {
             "id": 4,
-            "title": "Bulldog for Kids Logo",
-            "timeframe": "Jun. 2021",
-            "src": "../img/BulldogLogo.png",
-            "alt": "Employee Wiki HRIS",
-            "isWork": true,
-            "link": "https://www.guelphbulldog.com/",
-            "partialDesc": "As part of my graphic design work in Digital Main Street for Bulldog For Kids. Part of our work was to redesign their logo and...",
-            "fullDesc": "As part of my graphic design work in Digital Main Street for Bulldog For Kids. Part of our work was to redesign their logo and make their site look more cohesive with brand colours. Using feedback that they liked a simple design and to differentiate from a \"fitness\" component, we started by designing a new logo. Some of our designs would appear too much for preschool or it wasn't to their liking. However, we eventually agreed on the current design of a bouncing ball with some kids chasing after it.",
+            "title": "High School Photography Banner",
+            "timeframe": "Sept. 2018 - Jan 2019",
+            "src": "../img/photography_banner.jpg",
+            "alt": "Photography Banner",
+            "isAcademic": true,
+            "partialDesc": "Requested by my high school's technology department head, I was asked to create a banner to display for the photography classes...",
+            "fullDesc": "Requested by my high school's technology department head, I was asked to create a banner to display for the photography classes. The photo was edited to focus more on the camera to emphasize the subject in the camera itself and the displayed settings.",
             "tools": ["Photoshop"]
         }
     ]]

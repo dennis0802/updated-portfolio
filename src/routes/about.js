@@ -22,8 +22,8 @@ const About = () => {
                     
                     <p className="mt-2" style={{width: "50%", marginLeft: "auto", marginRight: "auto"}}>
                         I first became interested in what technology can do as a kid, starting with my interest in video games. This led to my interest in taking computer science classes during high school. 
-                        After doing exceptionally well in those classes, I began pursuing a Bachelor of Computer Science degree from the University of Windsor, where I graduated with great distinction in June 2024.
-                        I've picked up programming, algorithms, database management, AI, and web development.
+                        After doing exceptionally well in those classes, I began pursuing a Bachelor of Computer Science degree from the University of Windsor, where I graduated with great distinction in June 2024 and
+                        picked up programming, algorithms, database management, AI, and web development.
                     </p>
 
                     <p className="mt-2" style={{width: "50%", marginLeft: "auto", marginRight: "auto"}}>
