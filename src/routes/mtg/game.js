@@ -82,6 +82,7 @@ const MTGGame = () => {
                     }
                     setSearchComplete(true);
                 })
+                .catch({})
             }
         }, 500)
 
