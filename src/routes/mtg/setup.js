@@ -46,21 +46,30 @@ const MTGSetup = () => {
     useEffect(() => {
         const timeoutID = setTimeout(() => {
             if(playerData[index].commanderName && !searchComplete){
-                axios.get(`https://api.magicthegathering.io/v1/cards?type=Legendary Creature&name=${playerData[index].commanderName}`)
+                // Look for autocomplete results
+                axios.get(`https://api.scryfall.com/cards/autocomplete?q=${playerData[index].commanderName.replace(/[<>()"]/g, "")}`)
                 .then(res => {
                     let commanderNames = []
-                    for(let i = 0; i < 5; i++){
+
+                    for(let i = 0; i < res.data.data.length; i++){
                         try {
-                            commanderNames.push(res.data.cards[i].name);
+                            // Filter out non-legendary (commander) creatures
+                            axios.get(`https://api.scryfall.com/cards/named?fuzzy=${res.data.data[i]}`)
+                            .then(resSpecific => {
+                                try{
+                                    if(resSpecific.data.type_line.includes("Legendary Creature ")){
+                                        commanderNames.push(res.data.data[i])
+                                    }
+
+                                    let suggestions = [...new Set(commanderNames)].slice(0,5)
+                                    const nextSuggestions = commanderSuggestions.toSpliced(index, 1, suggestions);
+                                    setCommanderSuggestions(nextSuggestions);
+                                }
+                                catch{}
+                            })
+                            .catch({})
                         } catch {}
                     }
-                    let suggestions = [...new Set(commanderNames)]
-                    const nextSuggestions = commanderSuggestions.toSpliced(index, 1, suggestions);
-
-                    if(!suggestions.includes(playerData[index].commanderName)){
-                        setCommanderSuggestions(nextSuggestions);
-                    }
-
                     setSearchComplete(true);
                 })
                 .catch({})
@@ -84,6 +93,13 @@ const MTGSetup = () => {
                     {id: newPlayers, name: "", commanderName: "", health: startingHP, commanderDamage: Array(numPlayers).fill(0), commanderDeaths: 0, poisonCounters: 0, imageUrl: '../../img/card_placeholder.png', verifiedCommander: ''}
                 ]
             )
+            setCommanderSuggestions(
+                [
+                    ...commanderSuggestions,
+                    []
+                ]
+            )
+            setIndex(0);
         }
     }
 
@@ -93,6 +109,13 @@ const MTGSetup = () => {
                 playerData.filter(p => p.id !== numPlayers)
             )
             setNumPlayers(newPlayers);
+
+            const nextSuggestions = [];
+            for(let i = 0; i < newPlayers; i++){
+                nextSuggestions.push(commanderSuggestions[i]);
+            }
+            setCommanderSuggestions(nextSuggestions);
+            setIndex(0);
         }
     }
 
@@ -180,7 +203,7 @@ const MTGSetup = () => {
     }
 
     // HP handler
-    const onChangeHP = (newVal) => newVal < 20 ? setStartingHP(30) : newVal > 60 ? setStartingHP(60) : setStartingHP(newVal);
+    const onChangeHP = (newVal) => newVal < 20 ? setStartingHP(30) : newVal > 60 ? setStartingHP(60) : setStartingHP(Math.round(newVal));
 
     // Submission
     const startGame = () => {
@@ -213,16 +236,15 @@ const MTGSetup = () => {
 
         const promises = [];
         for(let i = 0; i < numPlayers; i++){
-            const p = axios.get(`https://api.magicthegathering.io/v1/cards?name=${playerData[i].commanderName}`)
+            const p = axios.get(`https://api.scryfall.com/cards/named?fuzzy=${playerData[i].commanderName.replace(/[<>()"]/g, "")}`)
             .then(res => {
-                const card = res.data.cards.filter(c => c.imageUrl && c.legalities.find(l => l.format === 'Commander'))[0];
-                playerData[i].imageUrl = card.imageUrl;
-                playerData[i].verifiedCommander = card.name;
+                playerData[i].imageUrl = res.data.image_uris.art_crop;
+                playerData[i].verifiedCommander = res.data.name;
                 localStorage.setItem("player" + (i+1), JSON.stringify(playerData[i]));
             })
             .catch(() => {
                 playerData[i].imageUrl = '../../img/card_placeholder.png';
-                playerData[i].verifiedCommander = playerData[i].commanderName;
+                playerData[i].verifiedCommander = playerData[i].commanderName.replace("/[<>]/g", "");
                 localStorage.setItem("player" + (i+1), JSON.stringify(playerData[i]));
             })
             promises.push(p);
@@ -326,7 +348,7 @@ const MTGSetup = () => {
                         <Modal.Header closeButton>
                         <Modal.Title>Game Exists</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body>
+                        <Modal.Body className="mx-2">
                             <p>You have a game saved in the browser. Would you like to continue this game?</p>
                             <p>Note that your save will NOT be deleted until either your browser's local storage for this site is cleared or you start a new match.</p>
                         </Modal.Body>
@@ -344,7 +366,7 @@ const MTGSetup = () => {
                         <Modal.Header closeButton>
                         <Modal.Title>About</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body>
+                        <Modal.Body className="mx-2">
                             <h4><b>WHY MAKE THIS?</b></h4>
                             <p>
                                 My interest in making this companion site was in attempting to speed up some of MTG games with friends <i>(we've gone upwards to 7 hours... 
@@ -352,7 +374,7 @@ const MTGSetup = () => {
                             </p>
                             <p>
                                 Additionally, I wanted to solve some of our current limitations with present apps not supporting large groups <i>(we've used a 6-person app when 
-                                there's 8+ of us)</i>and having to look all over the place for information during MTG games.<br/><br/>Site features include being able to consult 
+                                there's 8+ of us)</i> and having to look all over the place for information during MTG games.<br/><br/>Site features include being able to consult 
                                 for other cards by name, an easy to find link for advanced rulings, optional time limits for player turns, match customization, and 
                                 built-in dice rolling.
                             </p>
@@ -360,13 +382,9 @@ const MTGSetup = () => {
                             <h4><b>USE OF DATA</b></h4>
                             <p>
                                 The input data tracked by the site only includes your game's information and players and will only be used to locally display data and retrieve
-                                your commander's data (if they exist) from the Magic The Gathering API.
+                                your commander's data (if they exist) from Scryfall's Magic The Gathering API.
                             </p>
-
-                            <h4><b>RECENT REVISIONS</b></h4>
-                            <p>
-                                <b>Aug. 16, 2024:</b> Added auto-completion inputs for commander and card names.
-                            </p>
+                            <a href="https://scryfall.com/docs/api">Scryfall API</a>
                         </Modal.Body>
                         <Modal.Footer>
                             <p>Please feel free to contact me at <a href="mailto:dennisdao2001@gmail.com">dennisdao2001@gmail.com</a> for any suggestions or issues!</p>
@@ -383,6 +401,7 @@ const MTGSetup = () => {
                         </Modal.Header>
                         <Modal.Body>
                             <ul>
+                                <li><b>Aug. 19, 2024:</b> Further debugging and changed backend API to Scryfall to include 2024 releases.</li>
                                 <li><b>Aug. 16, 2024:</b> Added auto-completion inputs for commander and card names.</li>
                                 <li><b>Aug. 4, 2024:</b> Added more dice stats, counters, correct commander damage, and additional user customization.</li>
                                 <li><b>Jul. 25, 2024:</b> Initial release.</li>
@@ -466,7 +485,7 @@ const MTGSetup = () => {
                             />
                             <br/>
 
-                            <label className="mt-2" htmlFor="timer">Minutes Per Player (For infinite time, enter 0):</label>
+                            <label className="mt-2 mx-2" htmlFor="timer">Minutes Per Player (For infinite time, enter 0):</label>
                             <input
                                 type="number"
                                 className="form-control"

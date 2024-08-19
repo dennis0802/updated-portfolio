@@ -61,25 +61,22 @@ const MTGGame = () => {
         }
     }, [navigate])
 
-    // Begin a search after 500ms of no typing in the commander field
+    // Begin a search after 500ms of no typing in the card field
     useEffect(() => {
         const timeoutID = setTimeout(() => {
             if(cardName && !searchComplete){
-                axios.get(`https://api.magicthegathering.io/v1/cards?name=${cardName}`)
+                axios.get(`https://api.scryfall.com/cards/autocomplete?q=${cardName.replace(/[<>()"]/g, "")}`)
                 .then(res => {
                     let suggestions = []
-                    for(let i = 0; i < 5; i++){
+                    for(let i = 0; i < res.data.data.length; i++){
                         try{
-                            suggestions.push(res.data.cards[i].name);
+                            suggestions.push(res.data.data[i]);
                         }
                         catch{continue;}
                     }
+                    const results = [...new Set(suggestions)].slice(0,5)
 
-                    const results = [...new Set(suggestions)]
-
-                    if(!results.includes(cardName)){
-                        setCardSuggestions(results);
-                    }
+                    setCardSuggestions(results);
                     setSearchComplete(true);
                 })
                 .catch({})
@@ -163,7 +160,7 @@ const MTGGame = () => {
     // Player handlers
     const openPlayerModal = (id) => {
         setSelectedPlayer(id-1);
-        setSelectedAttacker(selectedAttacker+1 === id ? selectedAttacker === 0 ? selectedAttacker+1 : selectedAttacker+1 === parseInt(localStorage.getItem("numPlayers")) ? selectedAttacker-1: 0 : 0);
+        setSelectedAttacker(playerData.filter(p => p.id !== (id-1)+1)[0].id-1);
         setPlayerModal(true);
     }
 
@@ -253,9 +250,9 @@ const MTGGame = () => {
         suggestionApplied ? setSearchTerm(suggestion) : setSearchTerm(cardName);
         const term = suggestionApplied ? suggestion : cardName;
 
-        axios.get(`https://api.magicthegathering.io/v1/cards?name=${term}`)
+        axios.get(`https://api.scryfall.com/cards/named?fuzzy=${term.replace(/[<>()"]/g, "")}`)
         .then(res => {
-            const card = res.data.cards.filter(c => c.imageUrl)[0];
+            const card = res.data;
             setCard(card);
         })
         .catch(err => {
@@ -292,7 +289,7 @@ const MTGGame = () => {
             playAlert();
         }
     }
-    else if(!timerRunning && localStorage.getItem("timeLimit") !== "0"){
+    else if(!timerRunning && localStorage.getItem("timeLimit") !== "0" && winIndex === -1){
         startTime();
         setTimerRunning(true);
     }
@@ -314,7 +311,7 @@ const MTGGame = () => {
         <Carousel className="my-3" style={{backgroundColor: "gray"}} activeIndex={carouselView} onSelect={handleSelect} interval={null}>
             {playerData.map((player, index) => (
                 <Carousel.Item key={player.id} onClick={() => {openPlayerModal(player.id)}}>
-                    <Image src={player.imageUrl} width={265} height={370} alt={player.name + "'s commander"} style={{opacity: 0.6}} rounded/>
+                    <Image src={player.imageUrl} alt={player.name + "'s commander"} style={{opacity: 0.6}} fluid rounded/>
                     <Carousel.Caption>
                         <PlayerInfoCarousel player={player} playerData={playerData} index={index} winIndex={winIndex}/>
                     </Carousel.Caption>
@@ -396,7 +393,7 @@ const MTGGame = () => {
                         <Modal.Header closeButton>
                         <Modal.Title>Roll Dice</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body>
+                        <Modal.Body className="mx-2">
                             <div className="submit-form">
                                 <p>Please select a dice type and amount to roll.</p>
                                 <label className="mt-2" htmlFor="diceAmount">Amount of Dice:</label>
@@ -468,9 +465,9 @@ const MTGGame = () => {
                             <Modal.Header closeButton>
                             <Modal.Title>PLAYER {selectedPlayer+1}: {playerData[selectedPlayer].name}</Modal.Title>
                             </Modal.Header>
-                            <Modal.Body>
+                            <Modal.Body className="mx-2">
                                 <h3><b>Commander Name: </b>{playerData[selectedPlayer].commanderName}</h3>
-                                <Image src={playerData[selectedPlayer].imageUrl} width={176} height={246} alt={playerData[selectedPlayer].name + "'s commander"} style={{opacity: 0.7}} rounded/>
+                                <Image src={playerData[selectedPlayer].imageUrl} alt={playerData[selectedPlayer].name + "'s commander"} style={{opacity: 0.7}} fluid rounded/>
                                 <h3><b>Health Points: </b>{playerData[selectedPlayer].health}</h3>
                                 <p><b>Poison Counters: </b>{playerData[selectedPlayer].poisonCounters}</p>
                                 <p><b>Highest Commander Damage: </b>{Math.max(...playerData[selectedPlayer].commanderDamage)}</p>
@@ -576,7 +573,7 @@ const MTGGame = () => {
                         <Modal.Header closeButton>
                         <Modal.Title>How To Play</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body>
+                        <Modal.Body className="mx-2">
                             <h5><b>BEGIN</b></h5>
                             <ul>
                                 <li>Untap (turn your cards upright)</li>
@@ -619,9 +616,9 @@ const MTGGame = () => {
                         <Modal.Header closeButton>
                         <Modal.Title>Consult Card Info</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body>
-                            <p>Enter a card to get information on it. To get more advanced rulings and information on stats such as Vigilance, check More Details below.</p>
-                            <a href="https://media.wizards.com/2024/downloads/MagicCompRules%2020240607.pdf" target="_blank" rel="noopener noreferrer">More Details (June 7, 2024)</a>
+                        <Modal.Body className="mx-2">
+                            <p className="mx-2">Enter a card to get information on it. To get more advanced rulings and information on stats such as Vigilance, check More Details below.</p>
+                            <a className="mx-2" href="https://media.wizards.com/2024/downloads/MagicCompRules%2020240607.pdf" target="_blank" rel="noopener noreferrer">More Details (June 7, 2024)</a>
 
                             <div className="form-group mt-2" style={{marginLeft: "auto", marginRight: "auto", textAlign: "center"}}>
                                 <label className="mt-2" htmlFor="cardName">Card Name:</label>
@@ -662,17 +659,18 @@ const MTGGame = () => {
                                         {card ?
                                             <>
                                                 <p>The most relevant card was the following:</p>
-                                                <Image src={card.imageUrl} width={265} height={370} alt="Searched card" style={{opacity: 0.7}} rounded/>
+                                                <Image src={card.image_uris ? card.image_uris.normal : card.card_faces[0].image_uris.normal} alt="Searched card" style={{opacity: 0.7}} fluid rounded/>
                                                 
                                                 <h6><b>{card.name}</b></h6>
-                                                <p>Type: {card.type}</p>
+                                                <p>Type: {card.type_line}</p>
                                                 <p>Colors: {card.colors ? card.colors : "None"}</p>
-                                                <p>Attack: {card.power ? card.power : "None"}</p>
-                                                <p>Defense: {card.toughness ? card.toughness : "None"}</p>
+                                                <p>Attack/Defense: {card.power ? card.power : "None"}/{card.toughness ? card.toughness : "None"}</p>
                                                 <p>Artist: <i>{card.artist ? card.artist : "None"}</i></p>
+                                                <p>Set: <i>{card.set_name ? card.set_name : "None"}</i></p>
+                                                <p>Released: <i>{card.released_at ? card.released_at : "None"}</i></p>
                                             </>
                                         :
-                                            <p>No card matched.</p>
+                                            <p className="mx-2">No card matched or too many cards matched with search query. Add more words to refine your search.</p>
                                         }
                                     </>
                                 }
@@ -689,7 +687,7 @@ const MTGGame = () => {
                         <Modal.Header closeButton>
                         <Modal.Title>View Stats</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body>
+                        <Modal.Body className="mx-2">
                             {players}
                         </Modal.Body>
                         <Modal.Footer>
