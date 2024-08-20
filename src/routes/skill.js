@@ -26,7 +26,7 @@ const Skills = () => {
                         <Row><h3 className="my-2 py-2 bg-brand" style={{outline: "1px solid #CCCCCC", borderRadius: "10px", color: "#FFFFFF", fontWeight: "bold"}}>Skills</h3></Row>
                         <Row className="my-1">
                             <Col className="mx-2 mt-2 box" style={{outline: "1px solid #CCCCCC", borderRadius: "10px"}}>                                        
-                                <h5>Languages</h5>
+                                <h5 className="mt-2">Languages</h5>
                                 <ul style={{listStyleType: "square", textAlign: "left"}}>
                                     <li>Python</li>
                                     <li>C</li>
@@ -44,7 +44,7 @@ const Skills = () => {
                             </Col>
 
                             <Col className="mx-2 mt-2 box" style={{outline: "1px solid #CCCCCC", borderRadius: "10px"}}>
-                                <h5>Technologies</h5>                                        
+                                <h5 className="mt-2">Technologies</h5>                                        
                                 <ul style={{listStyleType: "square", textAlign: "left"}}>
                                     <li>Unity</li>
                                     <li>GitHub</li>
@@ -70,7 +70,7 @@ const Skills = () => {
                             </Col>
 
                             <Col className="mx-2 mt-2 box" style={{outline: "1px solid #CCCCCC", borderRadius: "10px"}}>                                        
-                                <h5>Libraries and Frameworks</h5>      
+                                <h5 className="mt-2">Libraries and Frameworks</h5>      
                                 <ul style={{listStyleType: "square", textAlign: "left"}}>
                                     <li>.NET</li>
                                     <li>SQLite-net</li>

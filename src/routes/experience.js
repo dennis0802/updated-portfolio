@@ -20,10 +20,8 @@ const Experience = () => {
                     transition={{duration: "0.4"}}
                 >
                     <Container fluid style={{width: "50%"}} className="my-3">
-                        <Row>
-                            <h3 className="my-2 py-2 bg-brand" style={{outline: "1px solid #CCCCCC", borderRadius: "10px", color: "#FFFFFF", fontWeight: "bold"}}>Education</h3>
-                        </Row>
-                        <Row>
+                        <Row><h3 className="my-2 py-2 bg-brand" style={{outline: "1px solid #CCCCCC", borderRadius: "10px", color: "#FFFFFF", fontWeight: "bold"}}>Education</h3></Row>
+                        <Row className="my-1">
                             <Col className="mx-2 box" style={{outline: "1px solid #CCCCCC", borderRadius: "10px"}}>
                                 <h3>University of Windsor</h3>
                                 <h4>B.CS Computer Science (Honours) with Co-op</h4>
@@ -43,7 +41,6 @@ const Experience = () => {
                             </Col>
                         </Row>
                     </Container>
-
                     
                     <Container fluid style={{width: "50%"}}>
                         <Row><h3 className="my-2 py-2 bg-brand" style={{outline: "1px solid #CCCCCC", borderRadius: "10px", color: "#FFFFFF", fontWeight: "bold"}}>Experience</h3></Row>

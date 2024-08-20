@@ -61,7 +61,6 @@ img:not(.logoImg) :hover{
     }
 }
 
-/* MTG Styles */
 @media only screen and (max-width: 350px) {
     #playerTable {
         font-size: 12px;

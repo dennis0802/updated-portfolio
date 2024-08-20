@@ -102,7 +102,7 @@ const ProjectsPage = () => {
                         {projectListing.map((projectRow, rowIndex) => (
                             <Row key={rowIndex} style={{}} className="my-1">
                                 {projectRow.map((project, colIndex) => (
-                                    <Col key={project.id} className="mx-2 mt-2 boxProj" style={{outline: "1px solid #CCCCCC", borderRadius: "10px"}} onClick={() => changeView(rowIndex, colIndex)}>
+                                    <Col key={project.id} className="mx-2 mt-2 box" style={{outline: "1px solid #CCCCCC", borderRadius: "10px"}} onClick={() => changeView(rowIndex, colIndex)}>
                                         <Figure className="mt-2">
                                             <Figure.Image
                                                 alt={project.alt}

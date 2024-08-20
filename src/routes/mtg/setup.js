@@ -57,7 +57,9 @@ const MTGSetup = () => {
                             axios.get(`https://api.scryfall.com/cards/named?fuzzy=${res.data.data[i]}`)
                             .then(resSpecific => {
                                 try{
-                                    if(resSpecific.data.type_line.includes("Legendary Creature ")){
+                                    if(resSpecific.data.type_line.includes("Legendary Creature ") || resSpecific.data.oracle_text.includes("can be your commander.") ||
+                                    resSpecific.data.card_faces[0].type_line.includes("Legendary Creature ")  || resSpecific.data.card_faces[1].type_line.includes("Legendary Creature ") ||
+                                    resSpecific.data.card_faces[0].oracle_text.includes("can be your commander") || resSpecific.data.card_faces[1].oracle_text.includes("can be your commander.")){
                                         commanderNames.push(res.data.data[i])
                                     }
 
@@ -238,7 +240,7 @@ const MTGSetup = () => {
         for(let i = 0; i < numPlayers; i++){
             const p = axios.get(`https://api.scryfall.com/cards/named?fuzzy=${playerData[i].commanderName.replace(/[<>()"]/g, "")}`)
             .then(res => {
-                playerData[i].imageUrl = res.data.image_uris.art_crop;
+                playerData[i].imageUrl = res.data.image_uris ? res.data.image_uris.art_crop : res.data.card_faces[0].image_uris.art_crop;
                 playerData[i].verifiedCommander = res.data.name;
                 localStorage.setItem("player" + (i+1), JSON.stringify(playerData[i]));
             })
@@ -401,6 +403,7 @@ const MTGSetup = () => {
                         </Modal.Header>
                         <Modal.Body>
                             <ul>
+                                <li><b>Aug. 20, 2024</b> Support for double-sided cards added.</li>
                                 <li><b>Aug. 19, 2024:</b> Further debugging and changed backend API to Scryfall to include 2024 releases.</li>
                                 <li><b>Aug. 16, 2024:</b> Added auto-completion inputs for commander and card names.</li>
                                 <li><b>Aug. 4, 2024:</b> Added more dice stats, counters, correct commander damage, and additional user customization.</li>

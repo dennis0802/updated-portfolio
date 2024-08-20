@@ -48,6 +48,7 @@ const MTGGame = () => {
 
     const [searchComplete, setSearchComplete] = useState(false);
     const [cardSuggestions, setCardSuggestions] = useState(Array(0));
+    const [viewBack, setViewBack] = useState(0);
 
     // Get player data to read from
     const localStoragePlayerData = [];
@@ -248,6 +249,7 @@ const MTGGame = () => {
 
     const applySearch = (suggestionApplied = false, suggestion = null) => {
         suggestionApplied ? setSearchTerm(suggestion) : setSearchTerm(cardName);
+        setViewBack(0);
         const term = suggestionApplied ? suggestion : cardName;
 
         axios.get(`https://api.scryfall.com/cards/named?fuzzy=${term.replace(/[<>()"]/g, "")}`)
@@ -311,7 +313,7 @@ const MTGGame = () => {
         <Carousel className="my-3" style={{backgroundColor: "gray"}} activeIndex={carouselView} onSelect={handleSelect} interval={null}>
             {playerData.map((player, index) => (
                 <Carousel.Item key={player.id} onClick={() => {openPlayerModal(player.id)}}>
-                    <Image src={player.imageUrl} alt={player.name + "'s commander"} style={{opacity: 0.6}} fluid rounded/>
+                    <Image className="box" src={player.imageUrl} alt={player.name + "'s commander"} style={{opacity: 0.6}} fluid rounded/>
                     <Carousel.Caption>
                         <PlayerInfoCarousel player={player} playerData={playerData} index={index} winIndex={winIndex}/>
                     </Carousel.Caption>
@@ -334,7 +336,7 @@ const MTGGame = () => {
                 </tr>
             </thead>
             <tbody id="playerTable">
-                {playerData.map((player, index) => (
+                {playerData.map((player) => (
                     <tr key={player.id}>
                         <td>{player.name}</td>
                         <td>{player.health}</td>
@@ -659,15 +661,33 @@ const MTGGame = () => {
                                         {card ?
                                             <>
                                                 <p>The most relevant card was the following:</p>
-                                                <Image src={card.image_uris ? card.image_uris.normal : card.card_faces[0].image_uris.normal} alt="Searched card" style={{opacity: 0.7}} fluid rounded/>
+                                                {card.card_faces ? 
+                                                    <>
+                                                        <Button className="mb-2" onClick={() => {setViewBack(viewBack === 0 ? 1 : 0)}}>Flip to {viewBack === 0 ? "Back" : "Front"}</Button>
+                                                        <Image src={card.card_faces[viewBack].image_uris.normal} alt="Searched card" style={{opacity: 0.7}} fluid rounded/>
+                                                        <h6 className="mt-2"><b>{card.card_faces[viewBack].name}</b></h6>
+                                                        <p>Type: {card.card_faces[viewBack].type_line}</p>
+                                                        <p>Colors: {card.card_faces[viewBack].colors.length ? card.card_faces[viewBack].colors : "None"}</p>
+                                                        <p>Attack/Defense: {card.power ? card.power + "/" + card.toughness : "None"}</p>
+                                                        <p>Artist: <i>{card.card_faces[viewBack].artist ? card.card_faces[viewBack].artist : "None"}</i></p>
+                                                        <p>Set: <i>{card.set_name ? card.set_name : "None"}</i></p>
+                                                        <p>Released: <i>{card.released_at ? card.released_at : "None"}</i></p>
+                                                        <Button className="mb-2" onClick={() => {setViewBack(viewBack === 0 ? 1 : 0)}}>Flip to {viewBack === 0 ? "Back" : "Front"}</Button>
+                                                    </>
+                                                : 
+                                                    <>
+                                                        <Image src={card.image_uris.normal} alt="Searched card" style={{opacity: 0.7}} fluid rounded/>
+                                                        <h6 className="mt-2"><b>{card.name}</b></h6>
+                                                        <p>Type: {card.type_line}</p>
+                                                        <p>Colors: {card.colors.length ? card.colors : "None"}</p>
+                                                        <p>Attack/Defense: {card.power ? card.power + "/" + card.toughness : "None"}</p>
+                                                        <p>Artist: <i>{card.artist ? card.artist : "None"}</i></p>
+                                                        <p>Set: <i>{card.set_name ? card.set_name : "None"}</i></p>
+                                                        <p>Released: <i>{card.released_at ? card.released_at : "None"}</i></p>
+                                                    </>
+                                                }
                                                 
-                                                <h6><b>{card.name}</b></h6>
-                                                <p>Type: {card.type_line}</p>
-                                                <p>Colors: {card.colors ? card.colors : "None"}</p>
-                                                <p>Attack/Defense: {card.power ? card.power : "None"}/{card.toughness ? card.toughness : "None"}</p>
-                                                <p>Artist: <i>{card.artist ? card.artist : "None"}</i></p>
-                                                <p>Set: <i>{card.set_name ? card.set_name : "None"}</i></p>
-                                                <p>Released: <i>{card.released_at ? card.released_at : "None"}</i></p>
+
                                             </>
                                         :
                                             <p className="mx-2">No card matched or too many cards matched with search query. Add more words to refine your search.</p>
