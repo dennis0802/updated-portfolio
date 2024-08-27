@@ -50,6 +50,13 @@ const MTGGame = () => {
     const [cardSuggestions, setCardSuggestions] = useState(Array(0));
     const [viewBack, setViewBack] = useState(0);
 
+    const [overallModal, setOverallModal] = useState(false);
+
+    const [round, setRound] = useState(1);
+    const [eliminationList, setEliminationList] = useState(Array(0))
+
+    const [tutorialModal, setTutorialModal] = useState(false);
+
     // Get player data to read from
     const localStoragePlayerData = [];
 
@@ -90,6 +97,10 @@ const MTGGame = () => {
     // Turn pass handler
     const onHandlePassTurn = () => {
         const current = parseInt(localStorage.getItem("numPlayers")) === (playerTurn+1) ? 0 : (playerTurn+1);
+        if(current === 0){
+            setRound(round+1);
+            localStorage.setItem("round", (round+1).toString())
+        }
         setPlayerTurn(current);
         localStorage.setItem("playerTurn", (current).toString())
         setResetNecessary(false);
@@ -112,6 +123,8 @@ const MTGGame = () => {
         if(aliveIndex.length === 1){
             stopTime();
             setWinIndex(aliveIndex[0]);
+            setEliminationList([...eliminationList, aliveIndex[0]])
+            localStorage.setItem("placing", JSON.stringify([...eliminationList, aliveIndex[0]]))
             localStorage.setItem("winIndex", aliveIndex[0])
         }
         else if(localStorage.getItem("winIndex") !== null && parseInt(localStorage.getItem("winIndex")) !== -1){
@@ -128,6 +141,8 @@ const MTGGame = () => {
         setDiceModal(false);
         setPlayerModal(false);
         setCardInfoModal(false);
+        setOverallModal(false);
+        setTutorialModal(false);
         setHtpModal(false);
     }
 
@@ -161,7 +176,7 @@ const MTGGame = () => {
     // Player handlers
     const openPlayerModal = (id) => {
         setSelectedPlayer(id-1);
-        setSelectedAttacker(playerData.filter(p => p.id !== (id-1)+1)[0].id-1);
+        setSelectedAttacker(playerData.filter(p => p.id !== id)[0].id-1);
         setPlayerModal(true);
     }
 
@@ -172,6 +187,11 @@ const MTGGame = () => {
         const change = adding ? healthChange : healthChange * -1;
         const nextData = playerData.map(player => {
             if(player.id === selectedPlayer+1){
+                if(parseInt(player.health) + parseInt(change) <= 0){
+                    setEliminationList([...eliminationList, player.id-1])
+                    localStorage.setItem("placing", JSON.stringify([...eliminationList, player.id-1]));
+                }
+
                 return {
                     ...player,
                     health: parseInt(player.health) + parseInt(change)
@@ -193,6 +213,11 @@ const MTGGame = () => {
 
         const nextData = playerData.map(player => {
             if(player.id === selectedPlayer+1){
+                if(playerData[selectedPlayer].commanderDamage[selectedAttacker] + parseInt(change) >= 21){
+                    setEliminationList([...eliminationList, player.id-1])
+                    localStorage.setItem("placing", JSON.stringify([...eliminationList, player.id-1]));
+                }
+
                 return {
                     ...player,
                     commanderDamage: newCommanderDamage
@@ -227,6 +252,11 @@ const MTGGame = () => {
         const change = adding ? poisonChange : poisonChange * -1;
         const nextData = playerData.map(player => {
             if(player.id === selectedPlayer+1){
+                if(player.poisonCounters + change >= 10){
+                    setEliminationList([...eliminationList, player.id-1])
+                    localStorage.setItem("placing", JSON.stringify([...eliminationList, player.id-1]));
+                }
+
                 return {
                     ...player,
                     poisonCounters: player.poisonCounters + change < 0 ? 0 : player.poisonCounters + change > 10 ? 10 : player.poisonCounters + change
@@ -239,6 +269,12 @@ const MTGGame = () => {
         localStorage.setItem("player" + (selectedPlayer+1), JSON.stringify(nextData[selectedPlayer]))
         setPoisonChange(0);
         setPlayerData(nextData);
+    }
+
+    const changePlayerView = (increasing) => {
+        let nextIndex = increasing ? selectedPlayer < parseInt(localStorage.getItem("numPlayers"))-1 ? selectedPlayer+1 : 0 : selectedPlayer > 0 ? selectedPlayer-1 : parseInt(localStorage.getItem("numPlayers"))-1;
+        setSelectedPlayer(nextIndex);
+        setSelectedAttacker(playerData.filter(p => p.id !== (nextIndex+1))[0].id-1);
     }
 
     // How to Play
@@ -284,6 +320,9 @@ const MTGGame = () => {
         audio.play();
     }
 
+    // Overall
+    const openOverall = () => setOverallModal(true);
+
     if(timerRunning && !resetNecessary){
         if(second === 0){
             stopTime();
@@ -296,6 +335,9 @@ const MTGGame = () => {
         setTimerRunning(true);
     }
 
+    // Tutorial
+    const openTutorialModal = () => setTutorialModal(true);
+
     // Initial read
     if(!mounted){
         for(let i = 0; i < localStorage.getItem("numPlayers"); i++){
@@ -303,6 +345,8 @@ const MTGGame = () => {
         }
         setPlayerTurn(parseInt(localStorage.getItem("playerTurn")) ? parseInt(localStorage.getItem("playerTurn")) : 0)
         setPlayerData(localStoragePlayerData);
+        setRound(parseInt(localStorage.getItem("round")) ? parseInt(localStorage.getItem("round")) : 1);
+        setEliminationList(localStorage.getItem("placing") ? JSON.parse(localStorage.getItem("placing")) : Array(0));
         checkWin();
 
         setMounted(true)
@@ -359,11 +403,11 @@ const MTGGame = () => {
 
     const options = 
     <>
-        {playerData.filter(p => p.id !== selectedPlayer + 1).map((player, index) => (
-            <option key={player.id} value={player.id}>{player.name}</option>
+        {playerData.filter(p => p.id !== selectedPlayer+1).map((player) => (
+            <option key={player.id-1} value={player.id-1}>{player.name}</option>
         ))}
     </>
-        
+     
     return (
         <div className="App">
             {/* SOURCE: https://mixkit.co/free-sound-effects/wrong/ */}
@@ -377,6 +421,7 @@ const MTGGame = () => {
                     transition={{duration: "0.4"}}
                 >
                     <h1 className="mt-3">{localStorage.getItem("title")}</h1>
+                    <h4>Round {round}</h4>
                     {winIndex === -1 ?
                         <>
                         {resetNecessary ? <h2 className="mt-3">Time to pass your turn!</h2>
@@ -465,15 +510,28 @@ const MTGGame = () => {
                     {playerModal && 
                         <Modal show={playerModal} onHide={closeModal} style={{marginLeft: "auto", marginRight: "auto", textAlign: "center"}}>
                             <Modal.Header closeButton>
-                            <Modal.Title>PLAYER {selectedPlayer+1}: {playerData[selectedPlayer].name}</Modal.Title>
+                                <Modal.Title>PLAYER {selectedPlayer+1}: {playerData[selectedPlayer].name}</Modal.Title>
                             </Modal.Header>
                             <Modal.Body className="mx-2">
                                 <h3><b>Commander Name: </b>{playerData[selectedPlayer].commanderName}</h3>
-                                <Image src={playerData[selectedPlayer].imageUrl} alt={playerData[selectedPlayer].name + "'s commander"} style={{opacity: 0.7}} fluid rounded/>
-                                <h3><b>Health Points: </b>{playerData[selectedPlayer].health}</h3>
-                                <p><b>Poison Counters: </b>{playerData[selectedPlayer].poisonCounters}</p>
-                                <p><b>Highest Commander Damage: </b>{Math.max(...playerData[selectedPlayer].commanderDamage)}</p>
+                                <Button 
+                                className="mx-2 my-2"
+                                onClick={() => {changePlayerView(false)}}
+                                >
+                                    <b>{"<"}</b>
+                                </Button>
+                                <Button 
+                                className="mx-2 my-2"
+                                onClick={() => {changePlayerView(true)}}
+                                >
+                                    <b>{">"}</b>
+                                </Button>
+
+                                <Image className="mt-2" src={playerData[selectedPlayer].imageUrl} alt={playerData[selectedPlayer].name + "'s commander"} style={{opacity: 0.7}} fluid rounded/>
+                                <h3 className="mt-2"><b>Health Points: </b>{playerData[selectedPlayer].health}</h3>
+                                <p><b>Max Commander Damage: </b>{Math.max(...playerData[selectedPlayer].commanderDamage)}</p>
                                 <p><b>Commander Deaths: </b>{playerData[selectedPlayer].commanderDeaths}</p>
+                                <p><b>Poison Counters: </b>{playerData[selectedPlayer].poisonCounters}</p>
                                 <p><b>STATUS: </b>
                                     {playerData[selectedPlayer].health <= 0 ? "Eliminated by losing all HP." 
                                     :
@@ -501,14 +559,14 @@ const MTGGame = () => {
                                         style={{width: "30%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}
                                         name="hpChange"
                                     />
-                                    <Button className="my-1" onClick={() => {applyHPChange(true)}}>
+                                    <Button className="my-1 mx-1" onClick={() => {applyHPChange(true)}}>
                                         Add HP
-                                    </Button><br/>
-                                    <Button className="my-1" onClick={() => {applyHPChange(false)}}>
+                                    </Button>
+                                    <Button className="my-1 mx-1" onClick={() => {applyHPChange(false)}}>
                                         Remove HP
                                     </Button><br/>
 
-                                    <label className="mt-1" htmlFor="poisonChange">Change Poison Counters:</label>
+                                    <label className="my-1" htmlFor="poisonChange">Change Poison Counters:</label>
                                     <input
                                         type="number"
                                         className="form-control"
@@ -522,17 +580,18 @@ const MTGGame = () => {
                                         style={{width: "30%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}
                                         name="poisonChange"
                                     />
-                                    <Button className="my-1" onClick={() => {applyPoison(true)}}>
-                                        Add Poison
-                                    </Button><br/>
-                                    <Button className="my-1" onClick={() => {applyPoison(false)}}>
-                                        Remove Poison
+                                    <Button className="my-1 mx-1" onClick={() => {applyPoison(true)}}>
+                                        Add
+                                    </Button>
+                                    <Button className="my-1 mx-1" onClick={() => {applyPoison(false)}}>
+                                        Remove
                                     </Button><br/>
 
-                                    <label className="mt-2" htmlFor="commanderDamage">Add Commander Damage:</label><br/>
+                                    <label className="my-2" htmlFor="commanderDamage">Add Commander Damage:</label><br/>
                                     <select 
-                                        className="my-2"
-                                        onChange={(e) => setSelectedAttacker(e.target.value - 1)}
+                                        className="mb-2"
+                                        value={selectedAttacker}
+                                        onChange={(e) => setSelectedAttacker(e.target.value)}
                                     >
                                         {options}
                                     </select>
@@ -551,17 +610,16 @@ const MTGGame = () => {
                                     />
 
                                     <p>You have taken {playerData[selectedPlayer].commanderDamage[selectedAttacker]} commander damage from {playerData[selectedAttacker].name}.</p>
-                                    <Button className="mt-2" onClick={applyCommanderDMGChange}>
+                                    <Button className="mb-3" onClick={applyCommanderDMGChange}>
                                         Add Commander Damage
                                     </Button><br/>
-
-                                    <Button className="my-2" onClick={addCommanderDeath}>
+                                    <p>Your commander has died {playerData[selectedPlayer].commanderDeaths} time(s) and will cost {2*playerData[selectedPlayer].commanderDeaths} more mana of any color to cast, plus the regular cost.</p>
+                                    <Button onClick={addCommanderDeath}>
                                         Add Commander Death
                                     </Button><br/>
 
                                 </div>
                                 }
-                                <p>Your commander will cost {2*playerData[selectedPlayer].commanderDeaths} more mana of any color to cast, plus the regular cost.</p>
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button variant="success" onClick={closeModal}>
@@ -605,6 +663,29 @@ const MTGGame = () => {
                             <ul>
                                 <li>Creatures heal</li>
                                 <li>Pass the turn</li>
+                            </ul>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="success" onClick={closeModal}>
+                                Return
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
+
+                    <Modal show={tutorialModal} onHide={closeModal}>
+                        <Modal.Header closeButton>
+                        <Modal.Title>How To Use This?</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body className="mx-2">
+                            <ul>
+                                <li>Click <i>Pass Turn</i> to change your turn to the next player.</li>
+                                <li>While there can be a timer, it is <b>not strictly enforced</b> on the companion site. (ie. it will still function even when the timer has finished.)</li>
+                                <li>Tap on a <i>carousel item</i> to view and edit a selected player's info.</li>
+                                <li><i>Consult Card Info</i> will allow you search for cards given a name to query.</li>
+                                <li><i>Overall Placing</i> will allow you to view player placings in the match.</li>
+                                <li><i>View All Stats</i> will allow you view all detailed player stats.</li>
+                                <li><i>How to Play</i> will allow you to view instructions on playing.</li>
+                                <li><i>Roll Dice</i> will allow you to roll dice ranging from D4-D20.</li>
                             </ul>
                         </Modal.Body>
                         <Modal.Footer>
@@ -672,7 +753,7 @@ const MTGGame = () => {
                                                         <p>Artist: <i>{card.card_faces[viewBack].artist ? card.card_faces[viewBack].artist : "None"}</i></p>
                                                         <p>Set: <i>{card.set_name ? card.set_name : "None"}</i></p>
                                                         <p>Released: <i>{card.released_at ? card.released_at : "None"}</i></p>
-                                                        <Button className="mb-2" onClick={() => {setViewBack(viewBack === 0 ? 1 : 0)}}>Flip to {viewBack === 0 ? "Back" : "Front"}</Button>
+                                                        <Button className="mb-2" onClick={() => {setViewBack(viewBack === 0 ? 1 : 0)}}>Flip to {viewBack === 0 ? "Back" : "Front"}</Button><br/>
                                                     </>
                                                 : 
                                                     <>
@@ -686,8 +767,7 @@ const MTGGame = () => {
                                                         <p>Released: <i>{card.released_at ? card.released_at : "None"}</i></p>
                                                     </>
                                                 }
-                                                
-
+                                                {card.name.includes("Sol Ring") && <>{"IYKYK ;)"}</>}
                                             </>
                                         :
                                             <p className="mx-2">No card matched or too many cards matched with search query. Add more words to refine your search.</p>
@@ -717,6 +797,52 @@ const MTGGame = () => {
                         </Modal.Footer>
                     </Modal>
 
+                    <Modal show={overallModal} onHide={closeModal}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Overall Stats</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body className="mx-2">
+                        {eliminationList.length > 0 ?
+                            <>
+                                <Table striped bordered hover variant="dark" style={{textAlign: "center"}}>
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Player</th>
+                                            <th>HP</th>
+                                            <th>Cmd. Dmg*</th>
+                                            <th>Psn. Tkns</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="playerTable">
+                                        {eliminationList.map((player, index) => (
+                                            <tr key={index}>
+                                                <td><b>{parseInt(localStorage.getItem("numPlayers")) - index}</b></td>
+                                                <td>
+                                                    <Image src={playerData[player].imageUrl} alt={playerData[player].name + "'s commander"} fluid rounded/><br/><b>{playerData[player].name}</b>
+                                                    {index === parseInt(localStorage.getItem("numPlayers"))-1 && <div style={{color:"lime"}}>Winner!</div>}
+                                                </td>
+                                                {playerData[player].health <= 0 ? <td style={{color: "red"}}>{playerData[player].health}</td> : <td>{playerData[player].health}</td>}
+                                                {Math.max(...playerData[player].commanderDamage) >= 21 ? <td style={{color: "red"}}>{Math.max(...playerData[player].commanderDamage)}</td> : <td>{Math.max(...playerData[player].commanderDamage)}</td>}
+                                                {playerData[player].poisonCounters >= 10 ? <td style={{color: "red"}}>{playerData[player].poisonCounters}</td> : <td>{playerData[player].poisonCounters}</td>}
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </Table>
+                                {winIndex !== -1 && <p>This game lasted for {(round-1) * parseInt(localStorage.getItem("numPlayers")) + playerTurn} turn(s), or {round} round(s).</p>}
+                                <p><i>*The highest commander damage taken from an opponent is listed here.</i></p>
+                            </>
+                            :
+                            <p>No players have been eliminated.</p>
+                        }
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="success" onClick={closeModal}>
+                                Return
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
+
                     {/* BUTTONS */}
                     <p></p>
                     {winIndex === -1 && <Button
@@ -729,16 +855,10 @@ const MTGGame = () => {
                     {carousel}
 
                     <Button
-                        onClick={openDiceModal}
+                        onClick={openTutorialModal}
                         className="mt-2"
                     >
-                        Roll Dice
-                    </Button><br/>
-                    <Button
-                        onClick={openStatsModal}
-                        className="mt-2"
-                    >
-                        View All Stats
+                        How to Use This?
                     </Button><br/>
                     <Button
                         onClick={openCardInfo}
@@ -747,11 +867,29 @@ const MTGGame = () => {
                         Consult Card Info
                     </Button><br/>
                     <Button
+                        onClick={openOverall}
+                        className="mt-2"
+                    >
+                        Overall Placing
+                    </Button><br/>
+                    <Button
+                        onClick={openStatsModal}
+                        className="mt-2"
+                    >
+                        View All Stats
+                    </Button><br/>
+                    <Button
                         onClick={openHTP}
                         className="mt-2"
                     >
                         How To Play
-                    </Button>
+                    </Button><br/>
+                    <Button
+                        onClick={openDiceModal}
+                        className="mt-2"
+                    >
+                        Roll Dice
+                    </Button><br/>
                         
                 </motion.div>
             </div>

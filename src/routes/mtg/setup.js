@@ -403,7 +403,8 @@ const MTGSetup = () => {
                         </Modal.Header>
                         <Modal.Body>
                             <ul>
-                                <li><b>Aug. 20, 2024</b> Support for double-sided cards added.</li>
+                                <li><b>Aug. 27, 2024:</b> Change between selected players easier, added overall game placing menu, more changes to improve user experience.</li>
+                                <li><b>Aug. 20, 2024:</b> Support for double-sided cards added.</li>
                                 <li><b>Aug. 19, 2024:</b> Further debugging and changed backend API to Scryfall to include 2024 releases.</li>
                                 <li><b>Aug. 16, 2024:</b> Added auto-completion inputs for commander and card names.</li>
                                 <li><b>Aug. 4, 2024:</b> Added more dice stats, counters, correct commander damage, and additional user customization.</li>
@@ -420,7 +421,7 @@ const MTGSetup = () => {
                             onClick={startGame}
                         >
                             <b>Start Game</b>
-                        </Button><br/>
+                        </Button>
                         <Button 
                             variant="success" 
                             className="mt-2 mx-2"
@@ -429,7 +430,7 @@ const MTGSetup = () => {
                             <b>Roll a D20</b>
                         </Button><br/>
 
-                        {d20Result !== 0 && <p>You rolled a {d20Result} at {d20RollTime.getHours()}:{d20RollTime.getMinutes()}:{d20RollTime.getSeconds() < 10 ? "0" + d20RollTime.getSeconds() : d20RollTime.getSeconds()}:{d20RollTime.getMilliseconds()}.</p>}
+                        {d20Result !== 0 && <p>You rolled a {d20Result} at {d20RollTime.getHours()}:{d20RollTime.getMinutes() < 10 ? "0" + d20RollTime.getMinutes() : d20RollTime.getMinutes()}:{d20RollTime.getSeconds() < 10 ? "0" + d20RollTime.getSeconds() : d20RollTime.getSeconds()}:{d20RollTime.getMilliseconds()}.</p>}
 
                         <div className="form-group mt-2">
                             <label className="mt-2" htmlFor="gameName">*Game Name:</label>
@@ -488,7 +489,7 @@ const MTGSetup = () => {
                             />
                             <br/>
 
-                            <label className="mt-2 mx-2" htmlFor="timer">Minutes Per Player (For infinite time, enter 0):</label>
+                            <label className="mt-2 mx-2" htmlFor="timer">Minutes Per Player (0 will disable timer):</label>
                             <input
                                 type="number"
                                 className="form-control"
@@ -518,8 +519,7 @@ const MTGSetup = () => {
                             onClick={startGame}
                         >
                             <b>Start Game</b>
-                        </Button><br/>
-
+                        </Button>
                         <Button 
                             variant="success" 
                             className="mt-2 mx-2"
@@ -535,7 +535,6 @@ const MTGSetup = () => {
                         >
                             <b>Revisions</b>
                         </Button>
-
                     </div>
                 </motion.div>
             </div>
