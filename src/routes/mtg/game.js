@@ -682,7 +682,7 @@ const MTGGame = () => {
                                 <li>While there can be a timer, it is <b>not strictly enforced</b> on the companion site. (ie. it will still function even when the timer has finished.)</li>
                                 <li>Tap on a <i>carousel item</i> to view and edit a selected player's info.</li>
                                 <li><i>Consult Card Info</i> will allow you search for cards given a name to query.</li>
-                                <li><i>Overall Placing</i> will allow you to view player placings in the match.</li>
+                                <li><i>Overall Placing</i> will allow you to view player placings in the overall match.</li>
                                 <li><i>View All Stats</i> will allow you view all detailed player stats.</li>
                                 <li><i>How to Play</i> will allow you to view instructions on playing.</li>
                                 <li><i>Roll Dice</i> will allow you to roll dice ranging from D4-D20.</li>
@@ -799,7 +799,7 @@ const MTGGame = () => {
 
                     <Modal show={overallModal} onHide={closeModal}>
                         <Modal.Header closeButton>
-                            <Modal.Title>Overall Stats</Modal.Title>
+                            <Modal.Title>Overall Placing</Modal.Title>
                         </Modal.Header>
                         <Modal.Body className="mx-2">
                         {eliminationList.length > 0 ?
