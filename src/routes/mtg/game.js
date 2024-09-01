@@ -208,8 +208,9 @@ const MTGGame = () => {
 
     const applyCommanderDMGChange = () => {
         const change = commanderDmgChange;
-        let newCommanderDamage = playerData[selectedPlayer].commanderDamage;
+        let newCommanderDamage = playerData[selectedPlayer].commanderDamage, newHp = playerData[selectedPlayer].health;
         newCommanderDamage[selectedAttacker] = playerData[selectedPlayer].commanderDamage[selectedAttacker] + parseInt(change);
+        newHp = newHp - parseInt(change) > 0 ? newHp - parseInt(change) : 0;
 
         const nextData = playerData.map(player => {
             if(player.id === selectedPlayer+1){
@@ -220,7 +221,8 @@ const MTGGame = () => {
 
                 return {
                     ...player,
-                    commanderDamage: newCommanderDamage
+                    commanderDamage: newCommanderDamage,
+                    health: newHp
                 }
             }
             else{
@@ -230,6 +232,7 @@ const MTGGame = () => {
         setPlayerData(nextData);
         localStorage.setItem("player" + (selectedPlayer+1), JSON.stringify(nextData[selectedPlayer]))
         setCommanderDmgChange(0);
+        setHealthChange(0);
     }
 
     const addCommanderDeath = () => {
