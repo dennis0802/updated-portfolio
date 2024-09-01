@@ -745,7 +745,18 @@ const MTGGame = () => {
                                         {card ?
                                             <>
                                                 <p>The most relevant card was the following:</p>
-                                                {card.card_faces ? 
+                                                {card.image_uris ? 
+                                                    <>
+                                                        <Image src={card.image_uris.normal} alt="Searched card" style={{opacity: 0.7}} fluid rounded/>
+                                                        <h6 className="mt-2"><b>{card.name}</b></h6>
+                                                        <p>Type: {card.type_line}</p>
+                                                        <p>Colors: {card.colors.length ? card.colors : "None"}</p>
+                                                        <p>Attack/Defense: {card.power ? card.power + "/" + card.toughness : "None"}</p>
+                                                        <p>Artist: <i>{card.artist ? card.artist : "None"}</i></p>
+                                                        <p>Set: <i>{card.set_name ? card.set_name : "None"}</i></p>
+                                                        <p>Released: <i>{card.released_at ? card.released_at : "None"}</i></p>
+                                                    </>
+                                                : 
                                                     <>
                                                         <Button className="mb-2" onClick={() => {setViewBack(viewBack === 0 ? 1 : 0)}}>Flip to {viewBack === 0 ? "Back" : "Front"}</Button>
                                                         <Image src={card.card_faces[viewBack].image_uris.normal} alt="Searched card" style={{opacity: 0.7}} fluid rounded/>
@@ -757,17 +768,6 @@ const MTGGame = () => {
                                                         <p>Set: <i>{card.set_name ? card.set_name : "None"}</i></p>
                                                         <p>Released: <i>{card.released_at ? card.released_at : "None"}</i></p>
                                                         <Button className="mb-2" onClick={() => {setViewBack(viewBack === 0 ? 1 : 0)}}>Flip to {viewBack === 0 ? "Back" : "Front"}</Button><br/>
-                                                    </>
-                                                : 
-                                                    <>
-                                                        <Image src={card.image_uris.normal} alt="Searched card" style={{opacity: 0.7}} fluid rounded/>
-                                                        <h6 className="mt-2"><b>{card.name}</b></h6>
-                                                        <p>Type: {card.type_line}</p>
-                                                        <p>Colors: {card.colors.length ? card.colors : "None"}</p>
-                                                        <p>Attack/Defense: {card.power ? card.power + "/" + card.toughness : "None"}</p>
-                                                        <p>Artist: <i>{card.artist ? card.artist : "None"}</i></p>
-                                                        <p>Set: <i>{card.set_name ? card.set_name : "None"}</i></p>
-                                                        <p>Released: <i>{card.released_at ? card.released_at : "None"}</i></p>
                                                     </>
                                                 }
                                                 {card.name.includes("Sol Ring") && <>{"IYKYK ;)"}</>}
