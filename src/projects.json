@@ -3,7 +3,7 @@
         {
             "id": 1,
             "title": "MTG Companion Site",
-            "timeframe": "Jul. 2024 - Aug. 2024",
+            "timeframe": "Jul 2024–Aug 2024",
             "src": "../img/mtg_app.png",
             "alt": "MTG Companion Site",
             "isPersonal": true,
@@ -16,7 +16,7 @@
         {
             "id": 2,
             "title": "Personal Portfolio",
-            "timeframe": "Sept. 2023 - June 2024",
+            "timeframe": "Sept 2023–Jun 2024",
             "src": "../img/portfolio.png",
             "alt": "Portfolio",
             "isPersonal": true,
@@ -29,7 +29,7 @@
         {
             "id": 3,
             "title": "Art Portfolio",
-            "timeframe": "May 2024 - June 2024",
+            "timeframe": "May 2024–Jun 2024",
             "src": "../img/art_portfolio.png",
             "alt": "Art portfolio",
             "isPersonal": true,
@@ -44,7 +44,7 @@
         {
             "id": 4,
             "title": "Employee Wiki",
-            "timeframe": "Mar. 2024 - May 2024",
+            "timeframe": "Mar 2024–May 2024",
             "src": "../img/hris.png",
             "alt": "Employee Wiki HRIS",
             "isPersonal": true,
@@ -58,7 +58,7 @@
         {
             "id": 5,
             "title": "Meeting Room Simulator",
-            "timeframe": "Feb. 2024 - ON HIATUS",
+            "timeframe": "Feb 2024–ON HIATUS",
             "src": "../img/meetingSim.png",
             "alt": "Meeting simulator",
             "isPersonal": true,
@@ -73,7 +73,7 @@
         {
             "id": 6,
             "title": "Game Tracker App",
-            "timeframe": "Jan. 2024 - Feb. 2024",
+            "timeframe": "Jan 2024–Feb 2024",
             "src": "../img/gameForum.png",
             "alt": "Game tracking site",
             "isPersonal": true,
@@ -88,7 +88,7 @@
         {
             "id": 7,
             "title": "The Western Trail",
-            "timeframe": "Jan. 2023 - Dec. 2023",
+            "timeframe": "Jan 2023–Dec 2023",
             "src": "../img/westernTrail.png",
             "alt": "Capstone project",
             "doc": "../docs/4990FinalReport.pdf",
@@ -104,7 +104,7 @@
         {
             "id": 8,
             "title": "Mental Health Database Application",
-            "timeframe": "Sept. 2023 - Nov. 2023",
+            "timeframe": "Sept 2023–Nov 2023",
             "src": "../img/mentalHealthDB.png",
             "alt": "Mental health application",
             "doc": "../docs/4150FinalReport.pdf",
@@ -120,7 +120,7 @@
         {
             "id": 9,
             "title": "Inventory Tracking System",
-            "timeframe": "Sept. 2022 - Aug. 2023",
+            "timeframe": "May 2023–Aug 2023 | Sept 2022-Dec 2022",
             "src": "../img/inventoryApp.png",
             "alt": "Art portfolio",
             "isPersonal": false,
@@ -135,7 +135,7 @@
         {
             "id": 10,
             "title": "Capture the Flag AI",
-            "timeframe": "Jan. 2023 - Apr. 2023",
+            "timeframe": "Jan 2023–Apr 2023",
             "src": "../img/ctf_ai.png",
             "alt": "Capture the flag AI",
             "isPersonal": false,
@@ -149,7 +149,7 @@
         {
             "id": 11,
             "title": "Tabletop Games",
-            "timeframe": "Jul. 2022 - Aug. 2022",
+            "timeframe": "Jul 2022–Aug 2022",
             "src": "../img/tabletop_ecom.png",
             "alt": "Board games site",
             "isPersonal": false,
@@ -163,7 +163,7 @@
         {
             "id": 12,
             "title": "RS Reporting Application",
-            "timeframe": "Jan. 2022 - Mar. 2022",
+            "timeframe": "Jan 2022–Mar 2022",
             "src": "../img/ssrs.png",
             "alt": "Reporting application",
             "isPersonal": false,
@@ -178,7 +178,7 @@
         {
             "id": 13,
             "title": "Online Capture the Flag",
-            "timeframe": "Oct. 2021 - Dec. 2021",
+            "timeframe": "Oct 2021–Dec 2021",
             "src": "../img/ctf_online.png",
             "alt": "Online Capture the Flag",
             "isPersonal": false,

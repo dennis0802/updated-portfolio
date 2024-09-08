@@ -403,6 +403,7 @@ const MTGSetup = () => {
                         </Modal.Header>
                         <Modal.Body>
                             <ul>
+                                <li><b>Sept. 8, 2024</b> Added an undo elimination button in case a user accidentally eliminates a player without meaning to.</li>
                                 <li><b>Aug. 27, 2024:</b> Change between selected players easier, added overall game placing menu, more changes to improve user experience.</li>
                                 <li><b>Aug. 20, 2024:</b> Support for double-sided cards added.</li>
                                 <li><b>Aug. 19, 2024:</b> Further debugging and changed backend API to Scryfall to include 2024 releases.</li>

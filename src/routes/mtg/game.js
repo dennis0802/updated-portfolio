@@ -341,6 +341,60 @@ const MTGGame = () => {
     // Tutorial
     const openTutorialModal = () => setTutorialModal(true);
 
+    // Reverse elimination
+    const reverseElimination = () => {
+        const nextData = playerData.map(player => {
+            if(player.id === selectedPlayer+1){
+                const nextCommanderDmg = player.commanderDamage.map(dmg => {
+                    if(dmg === 21){
+                        return 0;
+                    }
+                    else{
+                        return dmg;
+                    }
+                })
+
+                return{
+                    ...player,
+                    poisonCounters: player.poisonCounters === 10 ? 9 : player.poisonCounters,
+                    health: player.health === 0 ? 1 : player.health,
+                    commanderDamage: nextCommanderDmg
+                }
+            }
+            else{
+                return player;
+            }
+        })
+
+        if(winIndex !== -1){
+            setWinIndex(-1);
+            localStorage.setItem("winIndex", -1)
+            let nextList = eliminationList.filter(p => p !== selectedPlayer);
+            nextList = nextList.slice(0, nextList.length-1);
+
+            setEliminationList(nextList);
+            localStorage.setItem("placing", JSON.stringify(nextList));
+
+            if(playerTurn === 0 && round > 1){
+                setPlayerTurn(parseInt(localStorage.getItem("numPlayers"))-1);
+                setRound(round - 1);
+                localStorage.setItem("playerTurn", (parseInt(localStorage.getItem("numPlayers"))-1).toString())
+                localStorage.setItem("round", (round-1).toString())
+            }
+            else{
+                setPlayerTurn(playerTurn-1)
+                localStorage.setItem("playerTurn", (playerTurn-1).toString())
+            }
+        }
+        else{
+            setEliminationList(eliminationList.filter(p => p !== selectedPlayer));
+            localStorage.setItem("placing", JSON.stringify(eliminationList.filter(p => p !== selectedPlayer)));
+        }
+
+        localStorage.setItem("player" + (selectedPlayer+1), JSON.stringify(nextData[selectedPlayer]));
+        setPlayerData(nextData);
+    }
+
     // Initial read
     if(!mounted){
         for(let i = 0; i < localStorage.getItem("numPlayers"); i++){
@@ -546,7 +600,8 @@ const MTGGame = () => {
                                     }
                                 </p>
 
-                                {(playerData[selectedPlayer].health > 0 && playerData[selectedPlayer].poisonCounters < 10 && !playerData[selectedPlayer].commanderDamage.some(cd => cd >= 21) && winIndex === -1) &&
+                                {(playerData[selectedPlayer].health > 0 && playerData[selectedPlayer].poisonCounters < 10 && !playerData[selectedPlayer].commanderDamage.some(cd => cd >= 21) &&
+                                  playerData.filter(p => p.health > 0 && p.poisonCounters < 10 && !playerData[selectedPlayer].commanderDamage.some(cd => cd >= 21)).length > 1) ?
                                 <div className="submit-form">
                                     <label className="mt-1" htmlFor="hpChange">Change HP:</label>
                                     <input
@@ -622,6 +677,23 @@ const MTGGame = () => {
                                     </Button><br/>
 
                                 </div>
+                                :
+                                <>
+                                    {winIndex !== selectedPlayer && (playerData[selectedPlayer].health === 0 || playerData[selectedPlayer].poisonCounters >= 10 || playerData[selectedPlayer].commanderDamage.some(cd => cd >= 21)) &&
+                                        <>
+                                            <p>
+                                                Accidentally eliminated this player without meaning to? Click the button below to reset the player's eliminated stat.
+                                            </p>
+                                            <Button
+                                                className="my-1"
+                                                variant="warning"
+                                                onClick={reverseElimination}
+                                            >
+                                                Reset Player
+                                            </Button>
+                                        </>
+                                    }
+                                </>
                                 }
                             </Modal.Body>
                             <Modal.Footer>

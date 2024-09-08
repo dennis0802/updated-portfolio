@@ -3,7 +3,7 @@
         {
             "id": 1,
             "title": "Bulldog for Kids Logo",
-            "timeframe": "Jun. 2021",
+            "timeframe": "Jun 2021",
             "src": "../img/BulldogLogo.png",
             "alt": "Employee Wiki HRIS",
             "isWork": true,
@@ -41,7 +41,7 @@
         {
             "id": 4,
             "title": "High School Photography Banner",
-            "timeframe": "Sept. 2018 - Jan 2019",
+            "timeframe": "Sept 2018–Jan 2019",
             "src": "../img/photography_banner.jpg",
             "alt": "Photography Banner",
             "isAcademic": true,

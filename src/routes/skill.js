@@ -66,6 +66,7 @@ const Skills = () => {
                                     <li>Google Cloud Platform</li>
                                     <li>PostgreSQL</li>
                                     <li>Git</li>
+                                    <li>SDLC</li>
                                 </ul>
                             </Col>
 
