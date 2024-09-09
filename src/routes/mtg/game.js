@@ -582,7 +582,7 @@ const MTGGame = () => {
                                 onClick={() => {changePlayerView(true)}}
                                 >
                                     <b>{">"}</b>
-                                </Button>
+                                </Button><br/>
 
                                 <Image className="mt-2" src={playerData[selectedPlayer].imageUrl} alt={playerData[selectedPlayer].name + "'s commander"} style={{opacity: 0.7}} fluid rounded/>
                                 <h3 className="mt-2"><b>Health Points: </b>{playerData[selectedPlayer].health}</h3>
