@@ -25,11 +25,12 @@ const Experience = () => {
                             <Col className="mx-2 box" style={{outline: "1px solid #CCCCCC", borderRadius: "10px"}}>
                                 <h3>University of Windsor</h3>
                                 <h5>B.CS Computer Science (Honours) with Co-op</h5>
-                                <h6>September 2019 - December 2023</h6>
+                                <h6>Sept 2019-Jun 2024</h6>
                                 <ul>
                                     <li><b>92.5%</b> Major Average, <b>92.98%</b> Cumulative Average</li>
                                     <li>Specialized in Game Development</li>
                                     <li>Minored in Mathematics</li>
+                                    <li>Coursework: Databases, Artificial Intelligence, Data Structures/Algorithms, Operating Systems, Networks, Software Engineering, Graphics</li>
                                 </ul>
                                 <Button className="my-2" variant="secondary" onClick={() => {openExternal('../docs/DennisDao_Transcript.pdf')}}>
                                     <Image
