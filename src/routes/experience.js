@@ -103,7 +103,7 @@ const Experience = () => {
                                 <ul style={{textAlign: "left"}}>
                                     <li>
                                         Collaborated remotely in the <b>Digital Main Street (DMS) Future Proof</b> program with an Agile team of 8 to develop digital marketing strategies and tools for
-                                        5 small Ontario businesses by developing photos, logos, social media campaigns, and infographics using <b>Adobe Creative Cloud</b>
+                                        5 small Ontario businesses by developing photos, logos, social media campaigns, and infographics using <b>Photoshop</b> and <b>Illustrator</b>
                                     </li>
                                     <li>
                                         Delivered designs and documents to clients regularly, revising them based on their feedback until clients were satisfied
