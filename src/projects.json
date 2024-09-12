@@ -9,8 +9,8 @@
             "isPersonal": true,
             "link": "../mtgHome",
             "repository": "https://github.com/dennis0802/updated-portfolio",
-            "partialDesc": "A companion site attached to my portfolio to help speed up efficiencies for playing Magic The Gathering (MTG), especially for games I have...",
-            "fullDesc": "A companion site attached to my portfolio to help speed up efficiencies for playing Magic The Gathering (MTG), especially for games I have been a part of. Some efficiencies to speed up include listing up to 15 players, having an optional timer per player's turn, consulting the Scryfall API with autocomplete prompts for cards, and adjusting player stats. With the timer enabled and information available to manage and consult, this speeds up matches by 50%.",
+            "partialDesc": "A companion site attached to my portfolio to help improve the quality and speed of Magic The Gathering (MTG) games for a group of friends I...",
+            "fullDesc": "A companion site attached to my portfolio to help improve the quality and speed of Magic The Gathering (MTG) games for a group of friends I play with. Features include support for 2-15 players (with better support for large groups 6+ than previous apps), allowing user customization on matches (ex. timer, match title), consulting the Scryfall API with autocomplete prompts for commanders and cards, and managing player stats with an intuitive UI. My friends were delighted to see the final product as a tool for the game, and the implemented features sped our matches up by 50%",
             "tools": ["React", "Node.js", "Bootstrap", "HTML", "CSS", "JavaScript", "JSON", "GCP", "Companion Site"]
         },
         {
@@ -127,7 +127,7 @@
             "isWork": true,
             "repository": "",
             "partialDesc": "A Power Platform project during my 3rd and 4th co-op position to help an IT department manage their assets 40% more efficiently by visualizing...",
-            "fullDesc": "A Power Platform project during my 3rd and 4th co-op position to help an IT department manage their assets 40% more efficiently by visualizing and tracking their data and automating the processes within it. End-users would be able to create items, see the amount in stock, take/return assets, view laptop status, USB status, and printer status, and output the data in multiple formats.",
+            "fullDesc": "A Power Platform project during my 3rd and 4th co-op position to help an IT department manage their assets 40% more efficiently by visualizing and tracking their data and automating repetitive processes using Power Apps and Power Automate. End-users can create items, see the amount in stock, take/return assets, view laptop status, USB status, and printer status, view data trends as a graph, and output the data in multiple formats.",
             "tools": ["Power Platform", "Microsoft 365", "Power Fx", "Work"]
         }
     ],

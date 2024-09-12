@@ -85,7 +85,7 @@ const Experience = () => {
                                 <h6>Jan 2022-Apr 2022</h6>
                                 <ul style={{textAlign: "left"}}>
                                     <li>
-                                        Designed and developed <b>SQL Server</b> queries for a secure manufacturing reporting application to migrate from a legacy IBM AS/400 system
+                                        Designed and developed <b>SQL Server</b> queries for a secure manufacturing reporting application to migrate from an IBM AS/400 system
                                         and amortization calculations for a quote system in <b>Visual Basic</b> and <b>DevExpress WPF UI</b>, all ahead of schedule by <b>2</b> weeks
                                     </li>
                                     <li>
