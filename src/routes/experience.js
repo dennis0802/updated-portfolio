@@ -85,7 +85,7 @@ const Experience = () => {
                                 <h6>Jan 2022-Apr 2022</h6>
                                 <ul style={{textAlign: "left"}}>
                                     <li>
-                                        Designed and developed <b>SQL Server</b> queries for a secure manufacturing reporting application to migrate from a legacy AS400 system
+                                        Designed and developed <b>SQL Server</b> queries for a secure manufacturing reporting application to migrate from a legacy IBM AS/400 system
                                         and amortization calculations for a quote system in <b>Visual Basic</b> and <b>DevExpress WPF UI</b>, all ahead of schedule by <b>2</b> weeks
                                     </li>
                                     <li>
@@ -102,8 +102,8 @@ const Experience = () => {
                                 <h6>May 2021-Jun 2021</h6>
                                 <ul style={{textAlign: "left"}}>
                                     <li>
-                                        Collaborated remotely in the <b>Digital Main Street (DMS) Future Proof</b> program with an Agile team of 8 to develop digital marketing strategies and tools for
-                                        5 small Ontario businesses by developing photos, logos, social media campaigns, and infographics using <b>Photoshop</b> and <b>Illustrator</b>
+                                        Collaborated remotely in the <b>Digital Main Street (DMS) Future Proof</b> program with Agile teams of 8 to develop digital marketing strategies and tools for
+                                        700+ Southwestern Ontario small businesses by developing photos, logos, social media campaigns, and infographics using <b>Photoshop</b> and <b>Illustrator</b>
                                     </li>
                                     <li>
                                         Delivered designs and documents to clients regularly, revising them based on their feedback until clients were satisfied
