@@ -170,7 +170,7 @@
             "isWork": true,
             "repository": "",
             "partialDesc": "A SQL Server project during my 2nd co-op position to help an IT department migrate their IBM AS/400 system queries into...",
-            "fullDesc": "A SQL Server project during my 2nd co-op position to help an IT department migrate their IBM AS/400 system queries into efficient queries for a full stack application for manufacturing reporting, now used by 200+ employees. Queries were designed with temporary tables in the process to help speed the query up as much as possible.",
+            "fullDesc": "A SQL Server project during my 2nd co-op position to help an IT department migrate their IBM AS/400 system queries into efficient queries for a full stack application for manufacturing reporting, now used by 200+ employees. Queries were designed with temporary tables in the process to help speed the query up as much as up to 50%, while ensuring 100% accurate results.",
             "tools": ["SQL Server", "SSMS", "SSRS Report Builder", "ADUC", "Work"]
         }
     ],
