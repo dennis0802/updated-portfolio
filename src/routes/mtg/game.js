@@ -31,6 +31,7 @@ const MTGGame = () => {
     const [poisonChange, setPoisonChange] = useState(0);
     const [commanderDmgChange, setCommanderDmgChange] = useState(0);
     const [selectedAttacker, setSelectedAttacker] = useState(0);
+    const [prevStats, setPrevStats] = useState(Array(0));
 
     const [htpModal, setHtpModal] = useState(false);
     const [winIndex, setWinIndex] = useState(-1);
@@ -57,8 +58,9 @@ const MTGGame = () => {
 
     const [tutorialModal, setTutorialModal] = useState(false);
 
-    // Get player data to read from
+    // Get player data to read from local storage
     const localStoragePlayerData = [];
+    const localStoragePrevData = [];
 
     // Check that relevant local storage is filled
     useEffect(() => {
@@ -169,8 +171,9 @@ const MTGGame = () => {
         setDiceOutcomeSize(diceSize);
         setDiceOutcome(rolls);
         setDiceAvg((rolls.reduce((partial, newVal) => partial + newVal, 0)/rolls.length).toFixed(2));
-        const minuteString = current.getMinutes() <= 9 ? "0" + current.getMinutes().toString() : current.getMinutes().toString()
-        setTimeRolled(current.getHours() + ":" + minuteString + ":" + current.getSeconds() + ":" + current.getMilliseconds());
+        const minuteString = current.getMinutes() <= 9 ? "0" + current.getMinutes().toString() : current.getMinutes().toString();
+        const secondsString = current.getSeconds() <= 9 ? "0" + current.getSeconds().toString() : current.getSeconds().toString();
+        setTimeRolled(current.getHours() + ":" + minuteString + ":" + secondsString + ":" + current.getMilliseconds());
     }
 
     // Player handlers
@@ -180,9 +183,21 @@ const MTGGame = () => {
         setPlayerModal(true);
     }
 
-    const onChangeHP = (size) => size < 0 ? setHealthChange(0) : size > playerData[selectedPlayer].health ? setHealthChange(playerData[selectedPlayer].health) : setHealthChange(Math.round(size));
-    const onChangeCommanderDamage = (size) => size < 0 ? setCommanderDmgChange(0) : size > 21 - playerData[selectedPlayer].commanderDamage[selectedAttacker] ? setCommanderDmgChange(21 - playerData[selectedPlayer].commanderDamage[selectedAttacker]) : setCommanderDmgChange(Math.round(size));
-    const onChangePoison = (counters) => counters < 0 ? setPoisonChange(0) : counters > 10 - playerData[selectedPlayer].poisonCounters ? setPoisonChange(10 - playerData[selectedPlayer].poisonCounters) : setPoisonChange(Math.round(counters))
+    // Save data of current and previous game data
+    const saveData = (nextData) => {
+        const newPrev = prevStats.map((stat, index) => {
+            return stat.id === selectedPlayer+1 ? playerData[index] : stat;
+        })
+
+        setPrevStats(newPrev);
+        setPlayerData(nextData);
+        localStorage.setItem("prevPlayer" + (selectedPlayer+1), JSON.stringify(playerData[selectedPlayer]))
+        localStorage.setItem("player" + (selectedPlayer+1), JSON.stringify(nextData[selectedPlayer]))
+    }
+
+    const onChangeHP = (size) => size < 0 ? setHealthChange(0) : setHealthChange(Math.round(size));
+    const onChangeCommanderDamage = (size) => size < 0 ? setCommanderDmgChange(0) : setCommanderDmgChange(Math.round(size));
+    const onChangePoison = (counters) => counters < 0 ? setPoisonChange(0) : setPoisonChange(Math.round(counters))
     const applyHPChange = (adding) => {
         const change = adding ? healthChange : healthChange * -1;
         const nextData = playerData.map(player => {
@@ -194,34 +209,38 @@ const MTGGame = () => {
 
                 return {
                     ...player,
-                    health: parseInt(player.health) + parseInt(change)
+                    health: parseInt(player.health) + parseInt(change) <= 0 ? 0 : parseInt(player.health) + parseInt(change)
                 }
             }
             else{
                 return player;
             }
         });
-        setPlayerData(nextData);
-        localStorage.setItem("player" + (selectedPlayer+1), JSON.stringify(nextData[selectedPlayer]))
+        saveData(nextData);
         setHealthChange(0);
     }
 
-    const applyCommanderDMGChange = () => {
-        const change = commanderDmgChange;
-        let newCommanderDamage = playerData[selectedPlayer].commanderDamage, newHp = playerData[selectedPlayer].health;
-        newCommanderDamage[selectedAttacker] = playerData[selectedPlayer].commanderDamage[selectedAttacker] + parseInt(change);
-        newHp = newHp - parseInt(change) > 0 ? newHp - parseInt(change) : 0;
-
+    const applyCommanderDMGChange = (resetting = false) => {
+        const change = commanderDmgChange > 21 ? 21 : commanderDmgChange;
+        const newCommanderDamageVal = playerData[selectedPlayer].commanderDamage[selectedAttacker] + parseInt(change) >= 21 ? 21 : playerData[selectedPlayer].commanderDamage[selectedAttacker] + parseInt(change);
+        const newHp = playerData[selectedPlayer].health - parseInt(change) > 0 ? playerData[selectedPlayer].health - parseInt(change) : 0;
         const nextData = playerData.map(player => {
             if(player.id === selectedPlayer+1){
                 if(playerData[selectedPlayer].commanderDamage[selectedAttacker] + parseInt(change) >= 21){
                     setEliminationList([...eliminationList, player.id-1])
                     localStorage.setItem("placing", JSON.stringify([...eliminationList, player.id-1]));
                 }
+                
+                const newCommanderDamage = player.commanderDamage.map((val, index) => {
+                    return parseInt(selectedAttacker) === parseInt(index) ? newCommanderDamageVal : val;
+                })
+
+                const resetted = player.commanderDamage;
+                resetted[selectedAttacker] = 0;
 
                 return {
                     ...player,
-                    commanderDamage: newCommanderDamage,
+                    commanderDamage: resetting ? resetted : newCommanderDamage,
                     health: newHp
                 }
             }
@@ -229,18 +248,17 @@ const MTGGame = () => {
                 return player;
             }
         })
-        setPlayerData(nextData);
-        localStorage.setItem("player" + (selectedPlayer+1), JSON.stringify(nextData[selectedPlayer]))
+        saveData(nextData);
         setCommanderDmgChange(0);
         setHealthChange(0);
     }
 
-    const addCommanderDeath = () => {
+    const addCommanderDeath = (resetting = false) => {
         const nextData = playerData.map(player => {
             if(player.id === selectedPlayer+1){
                 return {
                     ...player,
-                    commanderDeaths: player.commanderDeaths+=1
+                    commanderDeaths: resetting ? 0 : player.commanderDeaths+1
                 }
             }
             else{
@@ -269,9 +287,8 @@ const MTGGame = () => {
                 return player;
             }
         })
-        localStorage.setItem("player" + (selectedPlayer+1), JSON.stringify(nextData[selectedPlayer]))
+        saveData(nextData);
         setPoisonChange(0);
-        setPlayerData(nextData);
     }
 
     const changePlayerView = (increasing) => {
@@ -345,19 +362,14 @@ const MTGGame = () => {
     const reverseElimination = () => {
         const nextData = playerData.map(player => {
             if(player.id === selectedPlayer+1){
-                const nextCommanderDmg = player.commanderDamage.map(dmg => {
-                    if(dmg === 21){
-                        return 0;
-                    }
-                    else{
-                        return dmg;
-                    }
+                const nextCommanderDmg = player.commanderDamage.map((dmg, index) => {
+                    return prevStats[selectedPlayer].commanderDamage[index];
                 })
 
                 return{
                     ...player,
-                    poisonCounters: player.poisonCounters === 10 ? 9 : player.poisonCounters,
-                    health: player.health === 0 ? 1 : player.health,
+                    poisonCounters: prevStats[selectedPlayer].poisonCounters,
+                    health: prevStats[selectedPlayer].health,
                     commanderDamage: nextCommanderDmg
                 }
             }
@@ -366,6 +378,7 @@ const MTGGame = () => {
             }
         })
 
+        // If a winner was declared, reverse the declaration, stats, and round. Otherwise, only stats
         if(winIndex !== -1){
             setWinIndex(-1);
             localStorage.setItem("winIndex", -1)
@@ -399,9 +412,11 @@ const MTGGame = () => {
     if(!mounted){
         for(let i = 0; i < localStorage.getItem("numPlayers"); i++){
             localStoragePlayerData.push(JSON.parse(localStorage.getItem("player" + (i+1))));
+            localStoragePrevData.push(JSON.parse(localStorage.getItem("prevPlayer" + (i+1)) ? localStorage.getItem("prevPlayer" + (i+1)) : localStorage.getItem("player" + (i+1))));
         }
         setPlayerTurn(parseInt(localStorage.getItem("playerTurn")) ? parseInt(localStorage.getItem("playerTurn")) : 0)
         setPlayerData(localStoragePlayerData);
+        setPrevStats(localStoragePrevData);
         setRound(parseInt(localStorage.getItem("round")) ? parseInt(localStorage.getItem("round")) : 1);
         setEliminationList(localStorage.getItem("placing") ? JSON.parse(localStorage.getItem("placing")) : Array(0));
         checkWin();
@@ -409,7 +424,7 @@ const MTGGame = () => {
         setMounted(true)
     }
 
-    // Create carousel
+    // Create carousel for player info
     const carousel = 
         <Carousel className="my-3" style={{backgroundColor: "gray"}} activeIndex={carouselView} onSelect={handleSelect} interval={null}>
             {playerData.map((player, index) => (
@@ -423,7 +438,7 @@ const MTGGame = () => {
             }
         </Carousel>
 
-    // Player listing
+    // Player listing in All Stats modal
     const players =
     <>
         <h3 style={{textAlign: "center"}}>{localStorage.getItem("title")}</h3>
@@ -458,6 +473,7 @@ const MTGGame = () => {
         </Table>
     </>
 
+    // Options for selecting a player to receive commander damage from
     const options = 
     <>
         {playerData.filter(p => p.id !== selectedPlayer+1).map((player) => (
@@ -601,7 +617,7 @@ const MTGGame = () => {
                                 </p>
 
                                 {(playerData[selectedPlayer].health > 0 && playerData[selectedPlayer].poisonCounters < 10 && !playerData[selectedPlayer].commanderDamage.some(cd => cd >= 21) &&
-                                  playerData.filter(p => p.health > 0 && p.poisonCounters < 10 && !playerData[selectedPlayer].commanderDamage.some(cd => cd >= 21)).length > 1) ?
+                                  playerData.filter(p => p.health > 0 && p.commanderDamage.every(c => c < 21) && p.poisonCounters < 10).length > 1) ?
                                 <div className="submit-form">
                                     <label className="mt-1" htmlFor="hpChange">Change HP:</label>
                                     <input
@@ -618,10 +634,10 @@ const MTGGame = () => {
                                         name="hpChange"
                                     />
                                     <Button className="my-1 mx-1" onClick={() => {applyHPChange(true)}}>
-                                        Add HP
+                                        Add
                                     </Button>
                                     <Button className="my-1 mx-1" onClick={() => {applyHPChange(false)}}>
-                                        Remove HP
+                                        Remove
                                     </Button><br/>
 
                                     <label className="my-1" htmlFor="poisonChange">Change Poison Counters:</label>
@@ -666,14 +682,19 @@ const MTGGame = () => {
                                         style={{width: "30%", marginLeft: "auto", marginRight: "auto", textAlign: "center"}}
                                         name="commanderDamage"
                                     />
-
-                                    <p>You have taken {playerData[selectedPlayer].commanderDamage[selectedAttacker]} commander damage from {playerData[selectedAttacker].name}.</p>
-                                    <Button className="mb-3" onClick={applyCommanderDMGChange}>
-                                        Add Commander Damage
+                                    <Button className="my-1 mx-1" onClick={() => {applyCommanderDMGChange()}}>
+                                        Add
+                                    </Button>
+                                    <Button className="my-1 mx-1" onClick={() => {applyCommanderDMGChange(true)}}>
+                                        Reset
                                     </Button><br/>
-                                    <p>Your commander has died {playerData[selectedPlayer].commanderDeaths} time(s) and will cost {2*playerData[selectedPlayer].commanderDeaths} more mana of any color to cast, plus the regular cost.</p>
-                                    <Button onClick={addCommanderDeath}>
-                                        Add Commander Death
+                                    <p>You have taken {playerData[selectedPlayer].commanderDamage[selectedAttacker]} commander damage from {playerData[selectedAttacker].name}.</p>
+                                    <p className="mt-3">Your commander has died {playerData[selectedPlayer].commanderDeaths} time(s) and will cost {2*playerData[selectedPlayer].commanderDeaths} more mana of any color to cast, plus the regular cost.</p>
+                                    <Button className="my-1 mx-1" onClick={() => {addCommanderDeath()}}>
+                                        Add Death
+                                    </Button>
+                                    <Button className="my-1 mx-1" onClick={() => {addCommanderDeath(true)}}>
+                                        Reset Death
                                     </Button><br/>
 
                                 </div>
