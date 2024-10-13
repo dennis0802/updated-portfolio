@@ -8,6 +8,7 @@ import { Button, Carousel, Image, Modal, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import PlayerInfoCarousel from "../../components/mtg/playerInfoCarousel.component";
+import useWakeLock from "react-use-wake-lock";
 
 const MTGGame = () => {
     const [setTime, startTime, stopTime, second] = Timer({secProp: parseInt(localStorage.getItem("timeLimit")) * 60});
@@ -57,6 +58,8 @@ const MTGGame = () => {
     const [eliminationList, setEliminationList] = useState(Array(0))
 
     const [tutorialModal, setTutorialModal] = useState(false);
+
+    const { isSupported, request} = useWakeLock();
 
     // Get player data to read from local storage
     const localStoragePlayerData = [];
@@ -410,6 +413,10 @@ const MTGGame = () => {
 
     // Initial read
     if(!mounted){
+        if(isSupported){
+            request();
+        }
+
         for(let i = 0; i < localStorage.getItem("numPlayers"); i++){
             localStoragePlayerData.push(JSON.parse(localStorage.getItem("player" + (i+1))));
             localStoragePrevData.push(JSON.parse(localStorage.getItem("prevPlayer" + (i+1)) ? localStorage.getItem("prevPlayer" + (i+1)) : localStorage.getItem("player" + (i+1))));
@@ -982,10 +989,11 @@ const MTGGame = () => {
                     </Button><br/>
                     <Button
                         onClick={openDiceModal}
-                        className="mt-2"
+                        className="my-2"
                     >
                         Roll Dice
                     </Button><br/>
+                    {!isSupported && <p><i>NOTE: Your browser does not support the Screen Wakelock API, this will cause your device to go to sleep through its normal settings.</i></p>}
                         
                 </motion.div>
             </div>

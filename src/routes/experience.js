@@ -47,6 +47,17 @@ const Experience = () => {
                         <Row><h3 className="my-2 py-2 bg-brand" style={{outline: "1px solid #CCCCCC", borderRadius: "10px", color: "#FFFFFF", fontWeight: "bold"}}>Experience</h3></Row>
                         <Row className="my-1">
                             <Col className="mx-2 mt-2 box" style={{outline: "1px solid #CCCCCC", borderRadius: "10px"}}>                                        
+                                <h3 className="mt-2">The Narmco Group</h3>
+                                <h5>Software Programmer</h5>
+                                <h6>Oct 2024-Present</h6>
+                                <ul style={{textAlign: "left"}}>
+                                    <li>
+                                        Achievements and responsibilities to be written at a later date.
+                                    </li>
+                                </ul>
+                            </Col>
+
+                            <Col className="mx-2 mt-2 box" style={{outline: "1px solid #CCCCCC", borderRadius: "10px"}}>                                        
                                 <h3 className="mt-2">University of Windsor</h3>
                                 <h5>Undergraduate Teaching Assistant</h5>
                                 <h6>Sept 2020-Dec 2023</h6>
@@ -79,6 +90,9 @@ const Experience = () => {
                                 </ul>
                             </Col>
 
+                        </Row>
+
+                        <Row className="my-1">
                             <Col className="mx-2 mt-2 box" style={{outline: "1px solid #CCCCCC", borderRadius: "10px"}}>                                        
                                 <h3 className="mt-2">The Narmco Group</h3>
                                 <h5>IT Developer Co-op Student</h5>
@@ -93,9 +107,7 @@ const Experience = () => {
                                     </li>
                                 </ul>
                             </Col>
-                        </Row>
 
-                        <Row className="my-1">
                             <Col className="mx-2 mt-2 box" style={{outline: "1px solid #CCCCCC", borderRadius: "10px"}}>
                                 <h3 className="mt-2">Communitech</h3>
                                 <h5>Graphic Designer Co-op Student</h5>
