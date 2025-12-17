@@ -40,6 +40,7 @@ const Skills = () => {
                                     <li>Power Fx</li>
                                     <li>C++</li>
                                     <li>BASH</li>
+                                    <li>PowerShell<li>
                                 </ul>
                             </Col>
 
@@ -67,6 +68,7 @@ const Skills = () => {
                                     <li>PostgreSQL</li>
                                     <li>Git</li>
                                     <li>SDLC</li>
+                                    <li>Automation Anywhere</li>
                                 </ul>
                             </Col>
 
