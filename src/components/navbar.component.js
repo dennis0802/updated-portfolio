@@ -11,7 +11,7 @@ function MainNavbar({selected}) {
           <header>
             <Navbar expand="lg" className="bg-body-tertiary" bg='brand' fixed="top">
               <Container>
-                <Navbar.Brand as={Link} to="/index" style={{color: "white", fontWeight:"bold"}}>            
+                <Navbar.Brand as={Link} to="/" style={{color: "white", fontWeight:"bold"}}>            
                   {/* <img
                     src="../img/logo.png"
                     width="30"
@@ -25,7 +25,7 @@ function MainNavbar({selected}) {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                   <Nav className="me-auto">
-                    <MainNavbarElement props={{target: "/index", targetName: "Home", selected: selected.id, targetID: 1}} />
+                    <MainNavbarElement props={{target: "/", targetName: "Home", selected: selected.id, targetID: 1}} />
                     <MainNavbarElement props={{target: "/about", targetName: "About", selected: selected.id, targetID: 2}} />
                     <MainNavbarElement props={{target: "/projects", targetName: "Projects", selected: selected.id, targetID: 3}} />
                     <MainNavbarElement props={{target: "/graphicdesign", targetName: "Graphic Design", selected: selected.id, targetID: 4}} />

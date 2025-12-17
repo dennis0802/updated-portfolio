@@ -1,6 +1,6 @@
 import './App.css';
 
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
 import Home from './routes/home';
 import About from './routes/about';
 import Skills from './routes/skill';
@@ -14,7 +14,7 @@ import MTGGame from './routes/mtg/game';
 
 function App() {
   return (
-    <Router>
+    <Router >
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/index" element={<Home/>} />
