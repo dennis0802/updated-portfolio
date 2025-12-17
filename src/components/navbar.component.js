@@ -34,7 +34,7 @@ function MainNavbar({selected}) {
                     <MainNavbarElement props={{target: "/contact", targetName: "Contact", selected: selected.id, targetID: 7}} />
                   </Nav>
                   <Nav>
-                    <Nav.Link as={Link} to={"../docs/DennisDao_Resume.pdf"} target="_blank" rel="noopener noreferrer" style={{color: "white"}}>Resume</Nav.Link>
+                    <Nav.Link as={Link} to={"../#/docs/DennisDao_Resume.pdf"} target="_blank" rel="noopener noreferrer" style={{color: "white"}}>Resume</Nav.Link>
                     <ContactComponent props={{link: "mailto:dennisdao2001@gmail.com", img: "../img/email.png", alt: "email"}} />
                     <ContactComponent props={{link: "https://github.com/dennis0802", img: "../img/githubLarge.png", alt: "github"}} />
                     <ContactComponent props={{link: "https://www.linkedin.com/in/dennis-dao0802/", img: "../img/linkedin.png", alt: "linkedin"}} />
