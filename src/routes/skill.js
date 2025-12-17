@@ -40,7 +40,7 @@ const Skills = () => {
                                     <li>Power Fx</li>
                                     <li>C++</li>
                                     <li>BASH</li>
-                                    <li>PowerShell<li>
+                                    <li>PowerShell</li>
                                 </ul>
                             </Col>
 
