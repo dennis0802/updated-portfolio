@@ -52,7 +52,10 @@ const Experience = () => {
                                 <h6>Oct 2024-Present</h6>
                                 <ul style={{textAlign: "left"}}>
                                     <li>
-                                        Achievements and responsibilities to be written at a later date.
+                                        Planned and scripted <b>Powershell</b> procedures to communicate with <b>SQL Server</b> and <b>Azure</b> databases and <b>REST APIs</b> to automate management and customs processes on a PLEX ERP system used by <b>200+</b> employees, improving operational efficiency by <b>60%</b>
+                                    </li>
+                                    <li>
+                                        Led RPA projects with <b>Automation Anywhere</b> to automate invoice processing and emailing processes with a completion rate of <b>+80%</b>
                                     </li>
                                 </ul>
                             </Col>
@@ -77,7 +80,7 @@ const Experience = () => {
 
                             <Col className="mx-2 mt-2 box" style={{outline: "1px solid #CCCCCC", borderRadius: "10px"}}>                                        
                                 <h3 className="mt-2">Windsor-Detroit Bridge Authority</h3>
-                                <h5>IT Support Specialist Co-op Student</h5>
+                                <h5>Information Technology Co-op Student</h5>
                                 <h6>May 2023-Aug 2023<br/>Sept 2022-Dec 2022</h6>
                                 <ul style={{textAlign: "left"}}>
                                     <li>
