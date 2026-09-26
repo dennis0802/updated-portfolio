@@ -48,15 +48,21 @@ const Experience = () => {
                         <Row className="my-1">
                             <Col className="mx-2 mt-2 box" style={{outline: "1px solid #CCCCCC", borderRadius: "10px"}}>                                        
                                 <h3 className="mt-2">The Narmco Group</h3>
-                                <h5>Software Programmer</h5>
+                                <h5>IT Applications / Database Administrator</h5>
                                 <h6>Oct 2024-Present</h6>
                                 <ul style={{textAlign: "left"}}>
                                     <li>
-                                        Planned and scripted <b>Powershell</b> procedures to communicate with <b>SQL Server</b> and <b>Azure</b> databases and <b>REST APIs</b> to automate management and customs processes on a PLEX ERP system used by <b>200+</b> employees, improving operational efficiency by <b>60%</b>
+                                        Implemented an automated <b>PowerShell</b> and <b>SQL Server</b> data pipeline utilizing <b>REST APIs</b> to monitor and sync employee data from UKG to PLEX ERP, minimizing manual administration by <b>80%</b>
                                     </li>
                                     <li>
-                                        Led RPA projects with <b>Automation Anywhere</b> to automate invoice processing and emailing processes with a completion rate of <b>+80%</b>
+                                        Engineered 2.5 comprehensive data tabs and specialized KPIs integrated into a high-priority, 10-tab Plant Manager Report in PLEX ERP using <b>SQL</b> and <b>IBI WebFocus</b>, ensuring <b>100%</b> data accuracy for executive operational reviews
                                     </li>
+                                    <li>
+                                        Leveraged <b>Automation Anywhere</b> to automate core Purchasing, AP, and AR transactional data logic, consistently sustaining high process automation success rates across enterprise workflows    
+                                    </li>
+                                    <li>
+                                        Automated <b>80%</b> of logistics updates within PLEX ERP by translating functional business requirements into technical logic for a new customs workflow, utilizing secure data pipelines across an <b>Azure Database</b>, Descartes software, and ITMR4 SFTP
+                                    </li>                                        
                                 </ul>
                             </Col>
 
